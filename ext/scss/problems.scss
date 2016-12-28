@@ -1,0 +1,16 @@
+table.results {
+  td.satoriEnhancementsProblemHide {
+    text-align: center;
+
+    & > a:hover {
+      cursor: pointer;
+    }
+  }
+
+  tr.satoriEnhancementsEven {
+    background-color: #F3F3FC !important;
+  }
+  tr.satoriEnhancementsOdd {
+    background-color: #E3E3FC !important;
+  }
+}

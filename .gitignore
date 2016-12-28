@@ -1,0 +1,10 @@
+bin/
+bower_components/
+ext/css/
+ext/vendor/bower/
+dist/
+node_modules/
+
+# Chrome extension & private key (it shouldn't actually be here, but just in case)
+*.crx
+*.pem

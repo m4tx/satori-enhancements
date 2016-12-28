@@ -1,0 +1,33 @@
+{
+  "name": "satori-enhancements",
+  "description": "WebExtension that adds a few useful enhancement to Satori Online Judge website.",
+  "main": "index.js",
+  "authors": [
+    "Mateusz \"m4tx\" Maćkowski"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "WebExtension",
+    "Chrome",
+    "Satori",
+    "online",
+    "judge",
+    "programming",
+    "Jagiellonian",
+    "University"
+  ],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.1.1",
+    "tablesorter": "*",
+    "SpinKit": "^1.2.5"
+  }
+}

@@ -1,0 +1,21 @@
+div.ranking {
+  table {
+    thead > tr > th {
+      cursor: pointer;
+    }
+
+    tbody {
+      // Ensure background colors of fixed columns match after sorting
+      tr:nth-child(odd) > td {
+        background-color: #E8E8E8 !important;
+      }
+      tr:nth-child(even) > td {
+        background-color: #F8F8F8 !important;
+      }
+
+      tr:hover td {
+        background-color: #deffcc !important;
+      }
+    }
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "manifest_version": 2,
+
+  "name": "Satori Enhancements",
+  "description": "Adds a few useful enhancement to Satori Online Judge website.",
+  "version": "1.0",
+
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+
+  "permissions": [
+    "activeTab",
+    "storage",
+    "notifications",
+    "webRequest",
+    "webRequestBlocking",
+    "*://satori.tcs.uj.edu.pl/*"
+  ],
+
+  "page_action": {
+    "default_icon": "icon128.png",
+    "default_title": "Satori Enhancements"
+  },
+
+  "background": {
+    "scripts": [
+      "vendor/browser-polyfill.js",
+      "js/background.js"
+    ]
+  },
+
+  "web_accessible_resources": [
+    "images/*.png",
+    "images/*.svg"
+  ],
+
+  "content_scripts": [
+    {
+      "matches": ["*://satori.tcs.uj.edu.pl/*"],
+      "js": [
+        "vendor/browser-polyfill.js",
+        "vendor/bower/jquery.min.js",
+        "js/general.js"
+      ],
+      "run_at": "document_end",
+      "css": ["css/general.css"]
+    },
+    {
+      "matches": ["*://satori.tcs.uj.edu.pl/contest/*/*"],
+      "exclude_matches": ["*://satori.tcs.uj.edu.pl/contest/apply/*"],
+      "js": [
+        "vendor/browser-polyfill.js",
+        "js/contest.js"
+      ],
+      "run_at": "document_start"
+    },
+    {
+      "matches": ["*://satori.tcs.uj.edu.pl/*/ranking/*"],
+      "js": [
+        "vendor/bower/jquery.min.js",
+        "vendor/bower/jquery.tablesorter.min.js",
+        "vendor/tableHeadFixer.min.js",
+        "js/ranking.js"
+      ],
+      "run_at": "document_end",
+      "css" : ["css/ranking.css"]
+    },
+    {
+      "matches": ["*://satori.tcs.uj.edu.pl/contest/*/problems*"],
+      "js": [
+        "vendor/browser-polyfill.js",
+        "vendor/bower/jquery.min.js",
+        "js/problems.js"
+      ],
+      "run_at": "document_end",
+      "css": ["css/problems.css"]
+    },
+    {
+      "matches": ["*://satori.tcs.uj.edu.pl/contest/*/results"],
+      "js": [
+        "vendor/browser-polyfill.js",
+        "vendor/bower/jquery.min.js",
+        "js/results-list.js"
+      ],
+      "run_at": "document_end"
+    },
+    {
+      "matches": ["*://satori.tcs.uj.edu.pl/contest/*/results/*"],
+      "js": [
+        "vendor/browser-polyfill.js",
+        "vendor/bower/jquery.min.js",
+        "js/results.js"
+      ],
+      "run_at": "document_end",
+      "css": [
+        "vendor/bower/7-three-bounce.css",
+        "css/results.css"
+      ]
+    }
+  ]
+}
