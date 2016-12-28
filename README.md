@@ -29,3 +29,6 @@ inside Chrome. Executing `gulp compress` (assuming you have gulp installed
 globally) can also be used to put these files inside a zip package (inside
 `bin/`) which can be sent to the AMO or Chrome Web Store Developer Dashboard.
 See `gulpfile.js` for more gulp tasks.
+
+## Download
+* [Chrome Web Store](https://chrome.google.com/webstore/detail/satori-enhancements/oghiinfmhnkmfecckbpcoieaieobblog)
