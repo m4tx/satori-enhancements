@@ -2,8 +2,24 @@
     'use strict';
 
     const NUMBER_REGEX = /-?(\d+\.?\d+|\d*\.?\d+)/;
+    const TABLE_FOOTER_LABELS = ["Rank", "Name", "Score"];
 
-    $('div.ranking table').tableHeadFixer({
+    let table = $('div.ranking table');
+
+    // Check if there's a ranking footer inside <tbody> by checking if the last
+    // table row has specific labels
+    let footerLabels = $.map(
+        table.find('tbody > tr:last > td'),
+        elem => $(elem).text()
+    );
+    if (TABLE_FOOTER_LABELS.every(x => footerLabels.indexOf(x) !== -1)) {
+        // ...if so, create a <tfoot>
+        let tr = table.find('tr:last').detach();
+        let tfoot = $('<tfoot/>').append(tr);
+        table.append(tfoot);
+    }
+
+    table.tableHeadFixer({
         left: 2
     }).tablesorter({
         textExtraction: function (node) {

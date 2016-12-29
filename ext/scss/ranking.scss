@@ -17,5 +17,20 @@ div.ranking {
         background-color: #deffcc !important;
       }
     }
+
+    tfoot > tr {
+      background-color: #ede !important;
+      & > td {
+        padding: 1px .5em 1px .5em !important;
+        border-bottom: none !important;
+      }
+    }
   }
+}
+
+div.ranking tbody > tr:last-child td:first-child:after {
+  // Since the original ranking CSS relies on the fact that the last <tr> is
+  // actually a table footer and move to <tfoot>, we have to restore the
+  // original "Rank" column contents in the last table row
+  content: counter(lp);
 }
