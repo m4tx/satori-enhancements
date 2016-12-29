@@ -2,8 +2,8 @@
   "manifest_version": 2,
 
   "name": "Satori Enhancements",
-  "description": "Adds a few useful enhancement to Satori Online Judge website.",
-  "version": "1.0",
+  "description": "Adds a few useful enhancements to Satori Online Judge website.",
+  "version": "1.0.1",
 
   "icons": {
     "16": "icon16.png",

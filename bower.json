@@ -1,6 +1,6 @@
 {
   "name": "satori-enhancements",
-  "description": "WebExtension that adds a few useful enhancement to Satori Online Judge website.",
+  "description": "WebExtension that adds a few useful enhancements to Satori Online Judge website.",
   "main": "index.js",
   "authors": [
     "Mateusz \"m4tx\" Maćkowski"
