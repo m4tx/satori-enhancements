@@ -25,6 +25,10 @@
         textExtraction: function (node) {
             // Try to find a number
             let text = $(node).text();
+            if (text === '-') {
+                // Treat "-" as the lowest possible number of points
+                return (-Infinity).toString();
+            }
             let num = text.match(NUMBER_REGEX);
             if (!num || num.length === 0 || isNaN(parseFloat(num[0]))) {
                 return text;
