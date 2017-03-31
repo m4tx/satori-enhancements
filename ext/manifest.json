@@ -3,7 +3,7 @@
 
   "name": "Satori Enhancements",
   "description": "Adds a few useful enhancements to Satori Online Judge website.",
-  "version": "1.1.1",
+  "version": "1.1.2",
 
   "icons": {
     "16": "icon16.png",
