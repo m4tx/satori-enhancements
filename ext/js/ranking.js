@@ -33,7 +33,11 @@
             if (!num || num.length === 0 || isNaN(parseFloat(num[0]))) {
                 return text;
             }
-            if (text.indexOf('(' + num[0] + ')') !== -1) {
+
+            let maxNumberPos = text.indexOf('(' + num[0] + ')');
+            if (maxNumberPos !== -1 &&
+                // Don't match "0.00 (1.00)"
+                maxNumberPos + 1 === text.indexOf(num[0])) {
                 // e.g. "(1.0)" - indicates number of points granted for solving
                 // problem (but not the actual number of points one has got)
                 return (parseFloat(num[0]) - 1000).toString();
