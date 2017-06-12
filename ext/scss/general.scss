@@ -1,3 +1,5 @@
+@import 'config';
+
 #satoriEnhancementsTCSLogo {
   padding-top: 24px;
   padding-right: 32px;
@@ -6,4 +8,11 @@
 
 div#content {
   margin-top: -1em;
+}
+
+// Body selector to increase specificity of the rule
+body .mainsphinx {
+  a, a:visited {
+    color: $link-color;
+  }
 }
