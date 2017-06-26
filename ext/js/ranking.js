@@ -14,8 +14,11 @@
     );
     if (TABLE_FOOTER_LABELS.every(x => footerLabels.indexOf(x) !== -1)) {
         // ...if so, create a <tfoot>
-        let tr = table.find('tr:last').detach();
-        let tfoot = $('<tfoot/>').append(tr);
+        let tr = table.find('tr:last');
+        let tfoot = $('<tfoot/>').append(tr.clone());
+        // Don't remove the last row as some custom CSS stylesheets expect it
+        // to be there (like: "don't include person number in the last row")
+        tr.hide();
         table.append(tfoot);
     }
 
