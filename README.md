@@ -32,6 +32,7 @@ See `gulpfile.js` for more gulp tasks.
 
 ## Download
 * [Chrome Web Store](https://chrome.google.com/webstore/detail/satori-enhancements/oghiinfmhnkmfecckbpcoieaieobblog)
+* [AMO (Firefox Add-ons)](https://addons.mozilla.org/firefox/addon/satori-enhancements/)
 
 ## Attribution
 * `ext/images_src/alttcs.psd` (derived images: `ext/images_src/alttcs.xcf`, `ext/images/alttcslogo.png`) was originally created by Adam Pardyl
