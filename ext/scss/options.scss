@@ -1,0 +1,15 @@
+.image-chooser {
+  & > .image-chooser-tile {
+    display: inline-block;
+    text-align: center;
+    margin-right: 20px;
+
+    img {
+      filter: brightness(0);
+      width: 96px;
+      height: 96px;
+
+      display: block;
+    }
+  }
+}

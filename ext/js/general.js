@@ -5,6 +5,9 @@
 
     const BANNER_URL = browser.extension.getURL('images/satori_banner.png');
     const TCS_LOGO_URL = browser.extension.getURL('images/tcslogo.svg');
+    const ALT_TCS_LOGO_URL = browser.extension.getURL('images/alttcslogo.png');
+
+    let storage = browser.storage.sync || browser.storage.local;
 
     /** Change the website logo to our custom version. */
     function modifyLogo() {
@@ -20,9 +23,13 @@
 
     /** Add our custom SVG TCS logo to the bottom of the sidebar. */
     function addTCSLogo() {
-        let logo = $('<img/>').attr('src', TCS_LOGO_URL);
-        let div = $('<div id="satoriEnhancementsTCSLogo"/>').append(logo);
-        $('#navigationPanel').after(div);
+        storage.get('chosenLogo').then(response => {
+            let url = response.chosenLogo === 'alternative' ?
+                ALT_TCS_LOGO_URL : TCS_LOGO_URL;
+            let logo = $('<img/>').attr('src', url);
+            let div = $('<div id="satoriEnhancementsTCSLogo"/>').append(logo);
+            $('#navigationPanel').after(div);
+        });
     }
 
     /** Remove EU logos. */

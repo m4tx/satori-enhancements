@@ -1,6 +1,10 @@
 @import 'config';
 
 #satoriEnhancementsTCSLogo {
+  & > img {
+    width: 96px;
+    height: 96px;
+  }
   padding-top: 24px;
   padding-right: 32px;
   text-align: center;
