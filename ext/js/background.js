@@ -159,7 +159,7 @@
 
         browser.webRequest.onBeforeRequest.addListener(
             function (details) {
-                if (typeof lastContestID == 'undefined' ||
+                if (typeof lastContestID === 'undefined' ||
                     lastContestID === null || satoriTabs.has(details.tabId)) {
                     // If we haven't saved any contest yet, then do nothing
                     // Also, don't redirect if the user is already browsing
@@ -194,13 +194,14 @@
 
                 let redirectURL;
                 for (let header of details.responseHeaders) {
-                    if (header.name.toLowerCase() == 'location') {
+                    if (header.name.toLowerCase() === 'location') {
                         redirectURL = header.value;
                         break;
                     }
                 }
 
-                if (typeof redirectURL != 'undefined' && redirectURL !== null) {
+                if (typeof redirectURL !== 'undefined' &&
+                    redirectURL !== null) {
                     contestResultsRedirects.add(getContestID(redirectURL));
                 }
             },

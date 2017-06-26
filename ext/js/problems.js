@@ -185,7 +185,7 @@
             problemTable
                 .find('tbody > tr > td:nth-child(1)')
                 .each(function () {
-                    if (response.indexOf($(this).text()) != -1) {
+                    if (response.indexOf($(this).text()) !== -1) {
                         hiddenProblemTrs.push($(this).parent().get(0));
                     }
 

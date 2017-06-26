@@ -43,7 +43,7 @@
             url: url,
             success: function (html) {
                 let status = parseStatusHTML(html);
-                if (typeof status != 'undefined' && status !== 'QUE') {
+                if (typeof status !== 'undefined' && status !== 'QUE') {
                     browser.runtime.sendMessage({
                         action: 'displayStatusNotification',
                         submitID: submitID,
