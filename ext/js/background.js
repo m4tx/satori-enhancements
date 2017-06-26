@@ -73,6 +73,8 @@
      */
     function enablePageAction(tab) {
         browser.pageAction.show(tab.id);
+        browser.pageAction.onClicked.addListener(
+            () => browser.runtime.openOptionsPage());
     }
 
     /**
