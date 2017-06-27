@@ -28,6 +28,7 @@
   "dependencies": {
     "jquery": "^3.1.1",
     "tablesorter": "*",
-    "SpinKit": "^1.2.5"
+    "SpinKit": "^1.2.5",
+    "highlightjs": "^9.12.0"
   }
 }

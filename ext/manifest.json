@@ -97,6 +97,7 @@
       "js": [
         "vendor/browser-polyfill.js",
         "vendor/bower/jquery.min.js",
+        "vendor/bower/highlight.pack.min.js",
         "js/results.js"
       ],
       "run_at": "document_end",

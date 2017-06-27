@@ -215,6 +215,22 @@
         );
     }
 
+    /**
+     * Add highlight.js CSS to the page using the selected style.
+     */
+    function injectHighlightJsCss() {
+        storage.get({
+            highlightJsStyle: 'none'
+        }).then(response => {
+            let style = response.highlightJsStyle;
+            if (style !== 'none') {
+                browser.tabs.insertCSS(undefined, {
+                    file: `vendor/bower/hjsstyles/${style}.css`
+                });
+            }
+        });
+    }
+
     retrieveLastContestID();
     setUpLastContestRedirect();
     setUpSubmitRedirect();
@@ -238,6 +254,8 @@
                 getContestItemList(
                     request.listName, getContestID(sender.url), resolve);
             });
+        } else if (request.action === 'injectHighlightJsCss') {
+            injectHighlightJsCss();
         }
         return new Promise(resolve => resolve(null));
     });

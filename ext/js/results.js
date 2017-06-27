@@ -65,4 +65,13 @@
         tr.find('td:last').append(THROBBER);
         setTimeout(checkStatus, REFRESH_INTERVAL);
     }
+
+    function initializeSyntaxHighlighter() {
+        $('pre.literal-block').each(function (i, block) {
+            browser.runtime.sendMessage({action: 'injectHighlightJsCss'});
+            hljs.highlightBlock(block);
+        });
+    }
+
+    initializeSyntaxHighlighter();
 })();
