@@ -41,7 +41,7 @@ gulp.task('jshint', function () {
 
 gulp.task('clean:bin', () => del.sync('bin'));
 gulp.task('clean:dist', () => del.sync('dist'));
-gulp.task('clean:vendor', () => del.sync('vendor/bower'));
+gulp.task('clean:vendor', () => del.sync(path.join(EXT_DIR, 'vendor/bower')));
 gulp.task('clean:css', () => del.sync(path.join(EXT_DIR, 'css')));
 gulp.task('clean', ['clean:bin', 'clean:dist', 'clean:css']);
 
