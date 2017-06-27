@@ -9,3 +9,13 @@ div.sk-three-bounce.satoriEnhancementsSpinner {
     background-color: rgba(0, 0, 0, .75);
   }
 }
+
+/* Block of numbers */
+.hljs-ln td.hljs-ln-numbers {
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  user-select: none;
+
+  vertical-align: top;
+  padding-right: 0.75em;
+}

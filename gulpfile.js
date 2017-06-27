@@ -15,7 +15,9 @@ let vendorFiles = [
     'bower_components/jquery/dist/jquery.min.js',
     'bower_components/tablesorter/jquery.tablesorter.min.js',
     'bower_components/SpinKit/css/spinners/7-three-bounce.css',
-    'bower_components/highlightjs/highlight.pack.min.js'
+    'bower_components/highlightjs/highlight.pack.min.js',
+    'bower_components/highlightjs-line-numbers.js/dist/' +
+    'highlightjs-line-numbers.min.js',
 ];
 
 let highlightJsStyles = config.HIGHLIGHT_JS_STYLES.map(

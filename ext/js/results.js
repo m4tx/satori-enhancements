@@ -70,6 +70,7 @@
         $('pre.literal-block').each(function (i, block) {
             browser.runtime.sendMessage({action: 'injectHighlightJsCss'});
             hljs.highlightBlock(block);
+            hljs.lineNumbersBlock(block);
         });
     }
 
