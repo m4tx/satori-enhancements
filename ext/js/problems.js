@@ -72,11 +72,7 @@
              */
             updateHiddenProblemsNum(problemsNum) {
                 this.hiddenProblemsNumEl.text(problemsNum);
-                if (problemsNum === 0) {
-                    this.tr.hide();
-                } else {
-                    this.tr.show();
-                }
+                setTrVisibility(this.tr, problemsNum !== 0);
             }
 
             /**
@@ -104,6 +100,10 @@
             }
         }
 
+        function setTrVisibility(tr, visible) {
+            tr.css('visibility', visible ? 'visible' : 'collapse');
+        }
+
         /**
          * Toggle whether given problem is hidden and call modifyContestItemList
          * in the background page to save that information.
@@ -126,7 +126,7 @@
                 }
             }
             if (hide && hiddenProblemsController.problemsHidden) {
-                tr.hide();
+                setTrVisibility(tr, false);
             }
             tr.find('td > a.satori_enhancements_hide_btn')
                 .text(hide ? "Show" : "Hide");
@@ -151,7 +151,7 @@
          */
         function toggleProblemsHidden() {
             for (let tr of hiddenProblemTrs) {
-                $(tr).toggle(!hiddenProblemsController.problemsHidden);
+                setTrVisibility($(tr), !hiddenProblemsController.problemsHidden);
             }
             updateEvenTrs();
         }
