@@ -6,24 +6,62 @@
     <link rel="stylesheet" href="css/options.css"/>
 </head>
 <body>
-<h2>Choose TCS logo:</h2>
+<h2>Primary logo</h2>
 <form class="image-chooser">
     <div class="image-chooser-tile">
         <label>
-            <img src="images/tcslogo.svg"/>
-            <input type="radio" name="logo-chooser" value="tcs">
+            <div class="image-chooser-content">
+                <img src="images/satori_banner.png"/>
+            </div>
+            <input type="radio" name="primary-logo-chooser" value="satoriPremium">
         </label>
     </div>
     <div class="image-chooser-tile">
         <label>
-            <img src="images/alttcslogo.png"/>
-            <input type="radio" name="logo-chooser" value="alternative">
+            <div class="image-chooser-content">
+                <img src="images/tcslogo.svg"/>
+            </div>
+            <input type="radio" name="primary-logo-chooser" value="tcs">
+        </label>
+    </div>
+    <div class="image-chooser-tile">
+        <label>
+            <div class="image-chooser-content">
+                <img src="images/alttcslogo.png"/>
+            </div>
+            <input type="radio" name="primary-logo-chooser" value="alternative">
         </label>
     </div>
 </form>
 
+<h2>Secondary logo</h2>
+<form class="image-chooser">
+    <div class="image-chooser-tile">
+        <label>
+            <div class="image-chooser-content">None</div>
+            <input type="radio" name="secondary-logo-chooser" value="none">
+        </label>
+    </div>
+    <div class="image-chooser-tile">
+        <label>
+            <div class="image-chooser-content">
+                <img src="images/tcslogo.svg"/>
+            </div>
+            <input type="radio" name="secondary-logo-chooser" value="tcs">
+        </label>
+    </div>
+    <div class="image-chooser-tile">
+        <label>
+            <div class="image-chooser-content">
+                <img src="images/alttcslogo.png"/>
+            </div>
+            <input type="radio" name="secondary-logo-chooser" value="alternative">
+        </label>
+    </div>
+</form>
+
+<h2>Syntax highlighter style</h2>
 <form>
-    <h2>Syntax highlighter style</h2>
     <select id="hjsstyle">
         <option value="none">None (disable highlighter)</option>
     </select>

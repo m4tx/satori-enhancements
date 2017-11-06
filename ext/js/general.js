@@ -11,7 +11,14 @@
 
     /** Change the website logo to our custom version. */
     function modifyLogo() {
-        $('img[src="/files/satori_banner.png"]').attr('src', BANNER_URL);
+        storage.get('chosenLogo_primary').then(response => {
+            let newLogoUrl = {
+                satoriPremium: BANNER_URL,
+                tcs: TCS_LOGO_URL,
+                alternative: ALT_TCS_LOGO_URL,
+            }[response.chosenLogo_primary];
+            $('img[src="/files/satori_banner.png"]').attr('src', newLogoUrl);
+        });
     }
 
     /** Set the tab order for the form fields (if present on current page). */
@@ -23,8 +30,12 @@
 
     /** Add our custom SVG TCS logo to the bottom of the sidebar. */
     function addTCSLogo() {
-        storage.get('chosenLogo').then(response => {
-            let url = response.chosenLogo === 'alternative' ?
+        storage.get('chosenLogo_secondary').then(response => {
+            const chosenLogo = response.chosenLogo_secondary;
+            if (chosenLogo === 'none') {
+                return;
+            }
+            let url = chosenLogo === 'alternative' ?
                 ALT_TCS_LOGO_URL : TCS_LOGO_URL;
             let logo = $('<img/>').attr('src', url);
             let div = $('<div id="satoriEnhancementsTCSLogo"/>').append(logo);

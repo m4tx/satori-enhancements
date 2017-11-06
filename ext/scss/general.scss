@@ -2,6 +2,8 @@
 
 #satoriEnhancementsTCSLogo {
   & > img {
+    filter: opacity(.2);
+
     width: 96px;
     height: 96px;
   }

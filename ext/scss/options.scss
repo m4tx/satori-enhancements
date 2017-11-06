@@ -1,15 +1,32 @@
+html {
+  height: 500px;
+  width: 425px;
+  overflow: hidden;
+}
+
+h2:not(:first-child) {
+  margin-top: 35px;
+}
+
 .image-chooser {
   & > .image-chooser-tile {
     display: inline-block;
     text-align: center;
     margin-right: 20px;
 
-    img {
-      filter: brightness(0);
+    .image-chooser-content {
       width: 96px;
       height: 96px;
 
-      display: block;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .image-chooser-content img {
+      max-width: 96px;
+      height: auto;
+      margin: auto;
     }
   }
 }

@@ -2,22 +2,29 @@
     'use strict';
 
     let storage = browser.storage.sync || browser.storage.local;
-    let logoChooser = $('input[name="logo-chooser"]');
+    let logoChoosers = {
+        primary: $('input[name="primary-logo-chooser"]'),
+        secondary: $('input[name="secondary-logo-chooser"]'),
+    };
     let styleSelect = $('select#hjsstyle');
 
-    function save_logo() {
+    function saveLogo(chooserName) {
         storage.set({
-            chosenLogo: logoChooser.filter(':checked').val()
+            [`chosenLogo_${chooserName}`]: logoChoosers[chooserName].filter(':checked').val()
         });
     }
 
-    function restore_options() {
+    function restoreOptions() {
         storage.get({
-            chosenLogo: 'tcs',
-            highlightJsStyle: 'none'
+            chosenLogo_primary: 'satoriPremium',
+            chosenLogo_secondary: 'tcs',
+            highlightJsStyle: 'default'
         }).then(items => {
-            let {chosenLogo, highlightJsStyle} = items;
-            logoChooser.filter(`[value="${chosenLogo}"]`).prop('checked', true);
+            const {highlightJsStyle} = items;
+            for (let chooserName in logoChoosers) {
+                let varName = `chosenLogo_${chooserName}`;
+                logoChoosers[chooserName].filter(`[value="${items[varName]}"]`).prop('checked', true);
+            }
             styleSelect.val(highlightJsStyle);
         });
     }
@@ -38,7 +45,9 @@
     }
 
     $(document).ready(addHighlightJsStyles);
-    $(document).ready(restore_options);
-    logoChooser.click(save_logo);
+    $(document).ready(restoreOptions);
+    for (let chooserName in logoChoosers) {
+        logoChoosers[chooserName].click(() => saveLogo(chooserName));
+    }
     styleSelect.change(saveStyle);
 })();
