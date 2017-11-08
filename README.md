@@ -8,13 +8,24 @@ to improve usability, ease of use and add some useful features, that should
 have been there since the beginning (but for some reason, they aren't).
 
 ## Features
-* Ability to sort ranking tables by given column
-* Auto-refreshing results page and notifying about problem status changes
-* Removing UI clutter and replacing some image assets (e.g. Satori Premium logo)
-* Adding tab-order in forms for quicker navigation
-* Fixing table columns' positions whenever it makes sense (e.g. ranking)
-* Ability to hide particular problems and remembering hidden problem groups
-* Auto-redirect to the recent contest, auto-redirect after a submit
+* General:
+  * Removing UI clutter
+  * Replacing some image assets (e.g. Satori Premium logo) with an option to configure what are they changed to
+  * Adding tab-order in forms for quicker navigation
+  * Auto-redirect to the recent contest when opening homepage URL
+* Problems:
+  * Highlighting solved problems
+  * Ability to hide particular problems and remembering hidden problem groups
+* Ranking:
+  * Ability to sort ranking tables by given column
+  * Search in ranking
+  * Swapping "Name" with "Lp" ("Ordinal") columns
+  * Sticking the table header and leftmost column (name) when scrolling so they're always visible
+* Submit:
+  * Auto-redirect to the latest results page after submitting a solution
+* Results:
+  * Auto-refreshing results page and notifying about problem status changes
+  * Syntax highlighting with configurable style
 
 ## Building
 First, make sure you have git and [npm](https://nodejs.org/) installed. Then:
