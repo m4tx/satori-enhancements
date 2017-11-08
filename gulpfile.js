@@ -13,11 +13,17 @@ let config = require('./ext/js/config');
 
 let vendorFiles = [
     'bower_components/jquery/dist/jquery.min.js',
-    'bower_components/tablesorter/jquery.tablesorter.min.js',
     'bower_components/SpinKit/css/spinners/7-three-bounce.css',
     'bower_components/highlightjs/highlight.pack.min.js',
     'bower_components/highlightjs-line-numbers.js/dist/' +
     'highlightjs-line-numbers.min.js',
+    'bower_components/datatables.net/js/jquery.dataTables.min.js',
+    'bower_components/datatables.net-dt/css/jquery.dataTables.min.css',
+    'bower_components/datatables.net-plugins/filtering/type-based' +
+    '/diacritics-neutralise.js',
+    'bower_components/datatables.net-fixedcolumns/js/dataTables.fixedColumns.min.js',
+    'bower_components/datatables.net-fixedcolumns-dt/css/fixedColumns.dataTables.min.css',
+    'bower_components/datatables.net-plugins/sorting/intl.js',
 ];
 
 let highlightJsStyles = config.HIGHLIGHT_JS_STYLES.map(

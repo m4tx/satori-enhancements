@@ -26,10 +26,13 @@
     "tests"
   ],
   "dependencies": {
-    "jquery": "^3.1.1",
-    "tablesorter": "*",
+    "jquery": "3.1.1",
     "SpinKit": "^1.2.5",
     "highlightjs": "^9.12.0",
-    "highlightjs-line-numbers.js": "^2.0.0"
+    "highlightjs-line-numbers.js": "^2.0.0",
+    "datatables.net-dt": "^3.2.2",
+    "datatables.net-plugins": "datatables-plugins#^1.10.16",
+    "datatables.net-fixedcolumns": "^3.2.3",
+    "datatables.net-fixedcolumns-dt": "^3.2.3"
   }
 }

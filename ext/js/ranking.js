@@ -4,6 +4,10 @@
     const NUMBER_REGEX = /-?(\d+\.?\d+|\d*\.?\d+)/;
     const TABLE_FOOTER_LABELS = ["Rank", "Name", "Score"];
 
+    // Table height is calculated as viewport height - this value
+    const PAGE_CONTENT_HEIGHT = 200;
+    const MIN_TABLE_HEIGHT = 250;
+
     let table = $('div.ranking table');
 
     // Check if there's a ranking footer inside <tbody> by checking if the last
@@ -22,30 +26,73 @@
         table.append(tfoot);
     }
 
-    table.tableHeadFixer({
-        left: 2
-    }).tablesorter({
-        textExtraction: function (node) {
-            // Try to find a number
-            let text = $(node).text();
-            if (text === '-') {
-                // Treat "-" as the lowest possible number of points
-                return '-Infinity';
-            }
-            let num = text.match(NUMBER_REGEX);
-            if (!num || num.length === 0 || isNaN(parseFloat(num[0]))) {
-                return text;
-            }
+    // Swap "Lp" and "Name" columns
+    $.each($("div.ranking table tr"), function () {
+        $(this).children(":eq(1)").after($(this).children(":eq(0)"));
+    });
 
-            let maxNumberPos = text.indexOf('(' + num[0] + ')');
-            if (maxNumberPos !== -1 &&
-                // Don't match "0.00 (1.00)"
-                maxNumberPos + 1 === text.indexOf(num[0])) {
-                // e.g. "(1.0)" - indicates number of points granted for solving
-                // problem (but not the actual number of points one has got)
-                return (parseFloat(num[0]) - 1000).toString();
-            }
-            return num[0];
+    // Add data-order attributes to provide valid sorting data for DataTable
+    function findPointNumber(text) {
+        // console.log(text);
+        if (text === '-') {
+            // Treat "-" as the lowest possible number of points
+            return -Infinity;
         }
+        let num = text.match(NUMBER_REGEX);
+        if (!num || num.length === 0 || isNaN(parseFloat(num[0]))) {
+            return null;
+        }
+
+        let maxNumberPos = text.indexOf('(' + num[0] + ')');
+        if (maxNumberPos !== -1 &&
+            // Don't match "0.00 (1.00)"
+            maxNumberPos + 1 === text.indexOf(num[0])) {
+            // e.g. "(1.0)" - indicates number of points granted for solving
+            // problem (but not the actual number of points one has got)
+            return parseFloat(num[0]) - 1000;
+        }
+        return parseFloat(num[0]);
+    }
+
+    $.each($("div.ranking table tbody td"), function (index, node) {
+        let val = findPointNumber($(node).text());
+        if (val !== null) {
+            // We're using negative value to reverse the default sorting order
+            $(node).attr('data-order', -val);
+        }
+    });
+
+    // Initialize DataTable
+    $.fn.dataTable.ext.order.intl('pl');
+    let dt = table.DataTable({
+        dom: 'i<"#table-search-container">t',
+        scrollY: Math.max($(window).height() - PAGE_CONTENT_HEIGHT,
+            MIN_TABLE_HEIGHT) + "px",
+        scrollX: true,
+
+        scrollCollapse: true,
+        paging: false,
+        fixedColumns: {
+            leftColumns: 1
+        },
+    });
+    let dtElem = $('.dataTables_wrapper');
+    $('#table-search-container').append($(
+        '<input type="search" id="table-search-input" placeholder="Search">'));
+
+    // Highlight on hover (not using :hover in CSS because we have two tables
+    // - main one and the left hand one with fixed column)
+    $('tbody', dtElem).on('mouseenter', 'tr', function () {
+        const trIndex = $(this).index();
+        $('tbody', dtElem).find(`tr:eq(${trIndex})`).addClass("highlight");
+    });
+    $('tbody', dtElem).on('mouseleave', 'tr', function () {
+        const trIndex = $(this).index();
+        $('tbody', dtElem).find(`tr:eq(${trIndex})`).removeClass("highlight");
+    });
+
+    // Remove accented characters from search input
+    $('#table-search-input').on('input', function () {
+        dt.search($.fn.DataTable.ext.type.search.string(this.value)).draw();
     });
 })();

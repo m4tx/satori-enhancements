@@ -69,12 +69,18 @@
       "matches": ["*://satori.tcs.uj.edu.pl/*/ranking/*"],
       "js": [
         "vendor/bower/jquery.min.js",
-        "vendor/bower/jquery.tablesorter.min.js",
-        "vendor/tableHeadFixer.min.js",
+        "vendor/bower/jquery.dataTables.min.js",
+        "vendor/bower/dataTables.fixedColumns.min.js",
+        "vendor/bower/diacritics-neutralise.js",
+        "vendor/bower/intl.js",
         "js/ranking.js"
       ],
       "run_at": "document_end",
-      "css" : ["css/ranking.css"]
+      "css" : [
+        "vendor/bower/jquery.dataTables.min.css",
+        "vendor/bower/fixedColumns.dataTables.min.css",
+        "css/ranking.css"
+      ]
     },
     {
       "matches": ["*://satori.tcs.uj.edu.pl/contest/*/problems*"],
