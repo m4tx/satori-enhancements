@@ -101,7 +101,7 @@
         }
 
         function setTrVisibility(tr, visible) {
-            tr.css('visibility', visible ? 'visible' : 'collapse');
+            tr.toggleClass('satori-enhancements-collapsed', !visible);
         }
 
         /**
@@ -164,7 +164,8 @@
          * not yet supported in any browser).
          */
         function updateEvenTrs() {
-            problemTable.find('tbody > tr:visible:gt(0)')
+            problemTable
+                .find('tbody > tr:not(.satori-enhancements-collapsed):gt(0)')
                 .each((index, element) => {
                     $(element)
                         .toggleClass('satoriEnhancementsOdd', index % 2 === 1)

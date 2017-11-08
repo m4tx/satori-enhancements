@@ -7,6 +7,10 @@ table.results {
     }
   }
 
+  .satori-enhancements-collapsed {
+    visibility: collapse;
+  }
+
   tr.satoriEnhancementsEven {
     background-color: #F3F3FC !important;
   }
