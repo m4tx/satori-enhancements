@@ -1,3 +1,13 @@
+const CHOSEN_LOGO_PRIMARY_KEY = 'chosenLogo_primary';
+const CHOSEN_LOGO_SECONDARY_KEY = 'chosenLogo_secondary';
+const HIGHLIGHT_JS_STYLE_KEY = 'highlightJsStyle';
+
+const DEFAULT_SETTINGS = {
+    [CHOSEN_LOGO_PRIMARY_KEY]: 'satoriPremium',
+    [CHOSEN_LOGO_SECONDARY_KEY]: 'tcs',
+    [HIGHLIGHT_JS_STYLE_KEY]: 'default'
+};
+
 const HIGHLIGHT_JS_STYLES = [
     'default',
     'agate',
@@ -23,6 +33,11 @@ const HIGHLIGHT_JS_STYLES = [
 
 if (typeof module !== 'undefined') {
     module.exports = {
-        HIGHLIGHT_JS_STYLES
+        CHOSEN_LOGO_PRIMARY_KEY,
+        CHOSEN_LOGO_SECONDARY_KEY,
+        HIGHLIGHT_JS_STYLE_KEY,
+        DEFAULT_SETTINGS,
+
+        HIGHLIGHT_JS_STYLES,
     };
 }

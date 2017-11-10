@@ -11,12 +11,14 @@
 
     /** Change the website logo to our custom version. */
     function modifyLogo() {
-        storage.get('chosenLogo_primary').then(response => {
+        storage.get({
+            [CHOSEN_LOGO_PRIMARY_KEY]: DEFAULT_SETTINGS[CHOSEN_LOGO_PRIMARY_KEY]
+        }).then(response => {
             let newLogoUrl = {
                 satoriPremium: BANNER_URL,
                 tcs: TCS_LOGO_URL,
                 alternative: ALT_TCS_LOGO_URL,
-            }[response.chosenLogo_primary];
+            }[response[CHOSEN_LOGO_PRIMARY_KEY]];
             $('img[src="/files/satori_banner.png"]').attr('src', newLogoUrl);
         });
     }
@@ -30,8 +32,11 @@
 
     /** Add our custom SVG TCS logo to the bottom of the sidebar. */
     function addTCSLogo() {
-        storage.get('chosenLogo_secondary').then(response => {
-            const chosenLogo = response.chosenLogo_secondary;
+        storage.get({
+            [CHOSEN_LOGO_SECONDARY_KEY]:
+                DEFAULT_SETTINGS[CHOSEN_LOGO_SECONDARY_KEY]
+        }).then(response => {
+            const chosenLogo = response[CHOSEN_LOGO_SECONDARY_KEY];
             if (chosenLogo === 'none') {
                 return;
             }

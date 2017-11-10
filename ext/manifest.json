@@ -36,6 +36,7 @@
   "background": {
     "scripts": [
       "vendor/browser-polyfill.js",
+      "js/config.js",
       "js/background.js"
     ]
   },
@@ -51,6 +52,7 @@
       "js": [
         "vendor/browser-polyfill.js",
         "vendor/bower/jquery.min.js",
+        "js/config.js",
         "js/general.js"
       ],
       "run_at": "document_end",

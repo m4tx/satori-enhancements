@@ -15,11 +15,7 @@
     }
 
     function restoreOptions() {
-        storage.get({
-            chosenLogo_primary: 'satoriPremium',
-            chosenLogo_secondary: 'tcs',
-            highlightJsStyle: 'default'
-        }).then(items => {
+        storage.get(DEFAULT_SETTINGS).then(items => {
             const {highlightJsStyle} = items;
             for (let chooserName in logoChoosers) {
                 let varName = `chosenLogo_${chooserName}`;

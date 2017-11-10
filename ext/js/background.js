@@ -220,7 +220,7 @@
      */
     function injectHighlightJsCss() {
         storage.get({
-            highlightJsStyle: 'none'
+            [HIGHLIGHT_JS_STYLE_KEY]: DEFAULT_SETTINGS[HIGHLIGHT_JS_STYLE_KEY]
         }).then(response => {
             let style = response.highlightJsStyle;
             if (style !== 'none') {
