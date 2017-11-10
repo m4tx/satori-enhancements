@@ -1,3 +1,9 @@
+const SATORI_URL = 'satori.tcs.uj.edu.pl/';
+const SATORI_URL_HTTP = 'http://' + SATORI_URL;
+const SATORI_URL_HTTPS = 'https://' + SATORI_URL;
+const PROBLEM_URL_REGEX =
+    /https:\/\/satori\.tcs\.uj\.edu\.pl\/contest\/(\d+)\//;
+
 const CHOSEN_LOGO_PRIMARY_KEY = 'chosenLogo_primary';
 const CHOSEN_LOGO_SECONDARY_KEY = 'chosenLogo_secondary';
 const HIGHLIGHT_JS_STYLE_KEY = 'highlightJsStyle';
@@ -33,6 +39,11 @@ const HIGHLIGHT_JS_STYLES = [
 
 if (typeof module !== 'undefined') {
     module.exports = {
+        SATORI_URL,
+        SATORI_URL_HTTP,
+        SATORI_URL_HTTPS,
+        PROBLEM_URL_REGEX,
+
         CHOSEN_LOGO_PRIMARY_KEY,
         CHOSEN_LOGO_SECONDARY_KEY,
         HIGHLIGHT_JS_STYLE_KEY,

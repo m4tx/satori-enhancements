@@ -1,12 +1,6 @@
 (function () {
     'use strict';
 
-    const PROBLEM_URL_REGEX =
-        /https:\/\/satori\.tcs\.uj\.edu\.pl\/contest\/(\d+)\//;
-
-    const SATORI_URL = 'satori.tcs.uj.edu.pl/';
-    const SATORI_URL_HTTP = 'http://' + SATORI_URL;
-    const SATORI_URL_HTTPS = 'https://' + SATORI_URL;
     const SATORI_URL_CONTEST = SATORI_URL_HTTPS + 'contest/';
 
     let storage = browser.storage.sync || browser.storage.local;
@@ -35,15 +29,6 @@
             message: "New problem status: " + status,
             iconUrl: 'icon48.png'
         });
-    }
-
-    /**
-     * Parse given URL and return the contest ID.
-     * @param {string} url URL to parse
-     * @returns {string} contest ID
-     */
-    function getContestID(url) {
-        return PROBLEM_URL_REGEX.exec(url)[1];
     }
 
     /**

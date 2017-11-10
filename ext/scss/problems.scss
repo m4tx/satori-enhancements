@@ -22,4 +22,12 @@ table.results {
   tr.satoriEnhancementsOdd {
     background-color: #E3E3FC !important;
   }
+
+  td.satori-enhancements-status-ok {
+    background-color: #D9F7C2;
+  }
+
+  td.satori-enhancements-status-err {
+    background-color: #F8C3D2;
+  }
 }

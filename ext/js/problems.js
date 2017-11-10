@@ -260,4 +260,68 @@
     hideProblemGroups();
     connectGroupHideLinks();
     $('table.results').each((index, table) => processProblemGroup($(table)));
+
+
+    // Highlighting solved tasks
+    const STATUS_ERR = 2;
+    const STATUS_OK = 1;
+    const STATUS_NONE = 1000;
+    const STATUS_MAP = {
+        [STATUS_ERR]: 'err',
+        [STATUS_OK]: 'ok',
+        [STATUS_NONE]: 'none',
+    };
+
+    const contestID = getContestID(document.location.href);
+    const storageKey = `statuses-${contestID}`;
+    const url = `https://satori.tcs.uj.edu.pl/contest/` +
+        `${contestID}/results?results_limit=10000`;
+
+    function parseResultsStatuses(html) {
+        const trs = $('table.results tbody tr', $.parseHTML(html));
+        const statuses = {};
+        for (const tr of trs) {
+            const problemName = $('td:eq(1)', tr).text();
+            if (problemName.trim() === '') {
+                continue;
+            }
+
+            const status = $('td.status', tr).text().trim();
+            let statusInt = STATUS_NONE;
+            if (status.startsWith('100') || status.search('OK') !== -1) {
+                statusInt = STATUS_OK;
+            } else {
+                statusInt = STATUS_ERR;
+            }
+            statuses[problemName] = Math.min(
+                statuses[problemName] || STATUS_NONE, statusInt);
+
+            // Store the statuses in local storage so they can be retrieved
+            // immediately on next page refresh
+            // We are not using storage.sync because status data can be easily
+            // retrieved again so there's no need to sync it
+            browser.storage.local.set({[storageKey]: statuses});
+        }
+        return statuses;
+    }
+
+    function annotateProblems(statuses) {
+        const tableTds = $('table.results tbody tr td:nth-child(1)');
+        for (const problemName in statuses) {
+            const cssClassSuffix = STATUS_MAP[statuses[problemName]];
+            tableTds
+                .filter(function () {
+                    return $(this).text().trim() === problemName;
+                })
+                .addClass(`satori-enhancements-status-${cssClassSuffix}`);
+        }
+    }
+
+    browser.storage.local.get(storageKey).then(
+        (result) => annotateProblems(result[storageKey]));
+    $.ajax({
+        type: 'GET',
+        url: url,
+        success: (html) => annotateProblems(parseResultsStatuses(html))
+    });
 })();
