@@ -26,10 +26,16 @@
         table.append(tfoot);
     }
 
+    // Remove colgroup as it messes with FixedColumns on Firefox, doesn't change
+    // the table behavior very much and is obsolete since HTML5
+    $('colgroup', table).remove();
+
     // Swap "Lp" and "Name" columns
-    $.each($("div.ranking table tr"), function () {
-        $(this).children(":eq(1)").after($(this).children(":eq(0)"));
-    });
+    if ($('th:eq(0)', table).text().trim() === 'Lp.') {
+        $.each($("tr", table), function () {
+            $(this).children(":eq(1)").after($(this).children(":eq(0)"));
+        });
+    }
 
     // Add data-order attributes to provide valid sorting data for DataTable
     function findPointNumber(text) {
