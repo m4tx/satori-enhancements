@@ -8,6 +8,12 @@ div.ranking {
     float:  right;
   }
 
+  // Don't put the table in the center as it doesn't work properly with
+  // FixedColumns and fixed header
+  table.dataTable {
+    margin: 0;
+  }
+
   .dataTables_wrapper {
     // Avoid adding a vertical scrollbar
     padding-bottom: 1px;
