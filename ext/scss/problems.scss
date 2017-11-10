@@ -1,3 +1,8 @@
+div#content {
+  // Avoid adding a vertical scrollbar after using visibility: collapse
+  overflow-y: hidden;
+}
+
 table.results {
   td.satoriEnhancementsProblemHide {
     text-align: center;
