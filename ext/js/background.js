@@ -203,13 +203,13 @@
     /**
      * Add highlight.js CSS to the page using the selected style.
      */
-    function injectHighlightJsCss() {
+    function injectHighlightJsCss(tab) {
         storage.get({
             [HIGHLIGHT_JS_STYLE_KEY]: DEFAULT_SETTINGS[HIGHLIGHT_JS_STYLE_KEY]
         }).then(response => {
             let style = response.highlightJsStyle;
             if (style !== 'none') {
-                browser.tabs.insertCSS(undefined, {
+                browser.tabs.insertCSS(tab.id, {
                     file: `vendor/bower/hjsstyles/${style}.css`
                 });
             }
@@ -240,7 +240,7 @@
                     request.listName, getContestID(sender.url), resolve);
             });
         } else if (request.action === 'injectHighlightJsCss') {
-            injectHighlightJsCss();
+            injectHighlightJsCss(sender.tab);
         }
         return new Promise(resolve => resolve(null));
     });
