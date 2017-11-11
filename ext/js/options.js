@@ -10,7 +10,8 @@
 
     function saveLogo(chooserName) {
         storage.set({
-            [`chosenLogo_${chooserName}`]: logoChoosers[chooserName].filter(':checked').val()
+            [`chosenLogo_${chooserName}`]:
+                logoChoosers[chooserName].filter(':checked').val()
         });
     }
 
@@ -19,7 +20,9 @@
             const {highlightJsStyle} = items;
             for (let chooserName in logoChoosers) {
                 let varName = `chosenLogo_${chooserName}`;
-                logoChoosers[chooserName].filter(`[value="${items[varName]}"]`).prop('checked', true);
+                logoChoosers[chooserName]
+                    .filter(`[value="${items[varName]}"]`)
+                    .prop('checked', true);
             }
             styleSelect.val(highlightJsStyle);
         });
