@@ -14,6 +14,7 @@ have been there since the beginning (but for some reason, they aren't).
   * Adding tab-order in forms for quicker navigation
   * Auto-redirect to the recent contest when opening homepage URL
 * Problems:
+  * "Results" link for each problem
   * Highlighting solved problems
   * Ability to hide particular problems and remembering hidden problem groups
 * Ranking:
