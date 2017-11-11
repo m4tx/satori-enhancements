@@ -288,7 +288,7 @@
 
             tr.find('td:last').before(td);
         });
-    table.find('tbody > tr:first').find('th').last().before('<th/>');
+    table.find('tbody > tr:first-child th:last-child').before('<th/>');
 
 
     // Highlighting solved tasks
