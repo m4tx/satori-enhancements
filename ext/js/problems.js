@@ -270,17 +270,29 @@
 
     // "Results" button
     const submitUrlRegex = /submit\?select=(\d+)/;
-    const resultsUrlReplacement = `${resultsURL}?results_filter_problem=$1`;
+    const pdfUrlRegex = /view\/ProblemMapping\/(\d+)\//;
 
     table
         .find('tbody > tr > td:nth-child(1)')
         .each(function () {
+            // Get the elements needed
             const tr = $(this).parent();
             const submitUrl = $('td:last-child a', tr).attr('href');
+            const pdfUrl = $('td:nth-child(3) a', tr).attr('href');
+
             const newTd = $('<td class="centered small"/>');
+
+            // Try to find problem ID in submit URL or PDF URL
+            let problemId;
             if (submitUrl !== undefined) {
-                const resultsUrl = submitUrl.replace(
-                    submitUrlRegex, resultsUrlReplacement);
+                problemId = submitUrl.match(submitUrlRegex)[1];
+            } else if (pdfUrl !== undefined) {
+                problemId = pdfUrl.match(pdfUrlRegex)[1];
+            }
+            if (problemId != null) {
+                // Create "Results" button
+                const resultsUrl =
+                    `${resultsURL}?results_filter_problem=${problemId}`;
 
                 const btn = $(
                     `<a href="${resultsUrl}" class="button button_small">
