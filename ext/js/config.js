@@ -21,7 +21,6 @@ const HIGHLIGHT_JS_STYLES = [
     'atom-one-light',
     'color-brewer',
     'darcula',
-    'github',
     'idea',
     'mono-blue',
     'monokai-sublime',
