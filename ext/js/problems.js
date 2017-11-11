@@ -277,16 +277,19 @@
         .each(function () {
             const tr = $(this).parent();
             const submitUrl = $('td:last-child a', tr).attr('href');
-            const resultsUrl = submitUrl.replace(
-                submitUrlRegex, resultsUrlReplacement);
+            const newTd = $('<td class="centered small"/>');
+            if (submitUrl !== undefined) {
+                const resultsUrl = submitUrl.replace(
+                    submitUrlRegex, resultsUrlReplacement);
 
-            const btn = $(
-                `<a href="${resultsUrl}" class="button button_small">
+                const btn = $(
+                    `<a href="${resultsUrl}" class="button button_small">
                     Results
                  </a>`);
-            const td = $('<td class="centered small"/>').append(btn);
+                newTd.append(btn);
+            }
 
-            tr.find('td:last').before(td);
+            tr.find('td:last').before(newTd);
         });
     table.find('tbody > tr:first-child th:last-child').before('<th/>');
 
