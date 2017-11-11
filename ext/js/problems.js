@@ -36,7 +36,7 @@
                 this.showLink = $('<a class="stdlink"/>')
                     .click(this._toggleProblemsHidden.bind(this));
                 this.textSpan = $('<span/>');
-                this.td = $('<td colspan="6" ' +
+                this.td = $('<td colspan="7" ' +
                     'class="satoriEnhancementsProblemHide"/>')
                     .append(this.hiddenProblemsNumEl)
                     .append(this.textSpan)
@@ -259,7 +259,36 @@
 
     hideProblemGroups();
     connectGroupHideLinks();
-    $('table.results').each((index, table) => processProblemGroup($(table)));
+    const table = $('table.results');
+    table.each((index, table) => processProblemGroup($(table)));
+
+
+    // "Results" constants
+    const contestID = getContestID(document.location.href);
+    const resultsURL = `${SATORI_URL_HTTPS}contest/${contestID}/results`;
+
+
+    // "Results" button
+    const submitUrlRegex = /submit\?select=(\d+)/;
+    const resultsUrlReplacement = `${resultsURL}?results_filter_problem=$1`;
+
+    table
+        .find('tbody > tr > td:nth-child(1)')
+        .each(function () {
+            const tr = $(this).parent();
+            const submitUrl = $('td:last-child a', tr).attr('href');
+            const resultsUrl = submitUrl.replace(
+                submitUrlRegex, resultsUrlReplacement);
+
+            const btn = $(
+                `<a href="${resultsUrl}" class="button button_small">
+                    Results
+                 </a>`);
+            const td = $('<td class="centered small"/>').append(btn);
+
+            tr.find('td:last').before(td);
+        });
+    table.find('tbody > tr:first').find('th').last().before('<th/>');
 
 
     // Highlighting solved tasks
@@ -272,10 +301,7 @@
         [STATUS_NONE]: 'none',
     };
 
-    const contestID = getContestID(document.location.href);
-    const storageKey = `statuses-${contestID}`;
-    const url = `https://satori.tcs.uj.edu.pl/contest/` +
-        `${contestID}/results?results_limit=10000`;
+    const statusesStorageKey = `statuses-${contestID}`;
 
     function parseResultsStatuses(html) {
         const trs = $('table.results tbody tr', $.parseHTML(html));
@@ -300,7 +326,7 @@
             // immediately on next page refresh
             // We are not using storage.sync because status data can be easily
             // retrieved again so there's no need to sync it
-            browser.storage.local.set({[storageKey]: statuses});
+            browser.storage.local.set({[statusesStorageKey]: statuses});
         }
         return statuses;
     }
@@ -317,11 +343,11 @@
         }
     }
 
-    browser.storage.local.get(storageKey).then(
-        (result) => annotateProblems(result[storageKey]));
+    browser.storage.local.get(statusesStorageKey).then(
+        (result) => annotateProblems(result[statusesStorageKey]));
     $.ajax({
         type: 'GET',
-        url: url,
+        url: resultsURL + '?results_limit=10000',
         success: (html) => annotateProblems(parseResultsStatuses(html))
     });
 })();
