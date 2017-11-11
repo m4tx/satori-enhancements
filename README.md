@@ -11,6 +11,7 @@ have been there since the beginning (but for some reason, they aren't).
 * General:
   * Removing UI clutter
   * Replacing some image assets (e.g. Satori Premium logo) with an option to configure what are they changed to
+  * Improving styles (e.g. using more distinctive link color)
   * Adding tab-order in forms for quicker navigation
   * Auto-redirect to the recent contest when opening homepage URL
 * Problems:
