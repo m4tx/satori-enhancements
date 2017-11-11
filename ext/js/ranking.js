@@ -26,6 +26,12 @@
         table.append(tfoot);
     }
 
+    // Move "Total" line, if present (indicated by <strong>), to
+    // newly-created <tfoot>
+    const footer =
+        $('tbody tr td:first-child strong', table).parents('tr').remove();
+    table.append($('<tfoot>').append(footer));
+
     // Remove colgroup as it messes with FixedColumns on Firefox, doesn't change
     // the table behavior very much and is obsolete since HTML5
     $('colgroup', table).remove();
