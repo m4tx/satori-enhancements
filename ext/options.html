@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Satori Enhancements Options</title>
     <link rel="stylesheet" href="css/options.css"/>
+    <link rel="stylesheet" href="css/results.css"/>
 </head>
 <body>
 <h2>Primary logo</h2>
@@ -68,9 +69,25 @@
         <option value="none">None (disable highlighter)</option>
     </select>
 </form>
+<div class="mainsphinx">
+    <pre id="syntax-highlighter-example">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+int main(int argc, char **argv) {
+    std::map&lt;std::string, std::vector&lt;uint32_t&gt;&gt; m;
+    for (auto i = 0; i &lt; 10; ++i)
+        m["key"].emplace_back(i); // add vector(10)
+
+    std::cout &lt;&lt; "Hello world!" &lt;&lt; (4e2 + 0xFF) * -1l &lt;&lt; '\n';
+
+    return 0b1110 /* 14 */;
+}</pre>
+</div>
 
 <script src="vendor/bower/jquery.min.js"></script>
 <script src="vendor/browser-polyfill.js"></script>
+<script src="vendor/bower/highlight.pack.min.js"></script>
+<script src="vendor/bower/highlightjs-line-numbers.min.js"></script>
 <script src="js/config.js"></script>
 <script src="js/options.js"></script>
 </body>

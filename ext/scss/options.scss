@@ -34,3 +34,8 @@ h2:not(:first-child) {
 select {
   width: 100%;
 }
+
+.mainsphinx pre {
+  background-color: #efc;
+  padding: 0.5em;
+}

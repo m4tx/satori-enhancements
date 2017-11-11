@@ -7,6 +7,7 @@
         secondary: $('input[name="secondary-logo-chooser"]'),
     };
     let styleSelect = $('select#hjsstyle');
+    let highlighterStylesheet;
 
     function saveLogo(chooserName) {
         storage.set({
@@ -25,6 +26,8 @@
                     .prop('checked', true);
             }
             styleSelect.val(highlightJsStyle);
+
+            refreshHighlighterStylesheet();
         });
     }
 
@@ -43,10 +46,30 @@
         });
     }
 
+    function refreshHighlighterStylesheet() {
+        if (highlighterStylesheet !== undefined) {
+            highlighterStylesheet.remove();
+        }
+        const newStyle = styleSelect.val();
+        if (newStyle !== 'none') {
+            highlighterStylesheet = $(
+                `<link rel="stylesheet"
+                       href="vendor/bower/hjsstyles/${newStyle}.css"/>`);
+            $('head').append(highlighterStylesheet);
+        }
+    }
+
+    $('#syntax-highlighter-example').each(function (i, block) {
+        hljs.highlightBlock(block);
+        hljs.lineNumbersBlock(block);
+    });
+
     $(document).ready(addHighlightJsStyles);
     $(document).ready(restoreOptions);
+
     for (let chooserName in logoChoosers) {
         logoChoosers[chooserName].click(() => saveLogo(chooserName));
     }
+    styleSelect.change(refreshHighlighterStylesheet);
     styleSelect.change(saveStyle);
 })();
