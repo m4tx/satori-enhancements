@@ -76,7 +76,7 @@ using namespace std;
 int main(int argc, char **argv) {
     std::map&lt;std::string, std::vector&lt;uint32_t&gt;&gt; m;
     for (auto i = 0; i &lt; 10; ++i)
-        m["key"].emplace_back(i); // add vector(i)
+        m["key"].emplace_back(i); // add i to vector
 
     std::cout &lt;&lt; "Hello world!" &lt;&lt; (4e2 + 0xFF) * -1l &lt;&lt; '\n';
 
