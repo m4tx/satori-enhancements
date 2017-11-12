@@ -5,7 +5,7 @@
     const TABLE_FOOTER_LABELS = ["Rank", "Name", "Score"];
 
     // Table height is calculated as viewport height - this value
-    const PAGE_CONTENT_HEIGHT = 200;
+    const PAGE_CONTENT_HEIGHT = 165;
     const MIN_TABLE_HEIGHT = 250;
 
     let table = $('div.ranking table');
