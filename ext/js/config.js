@@ -11,11 +11,10 @@ const HIGHLIGHT_JS_STYLE_KEY = 'highlightJsStyle';
 const DEFAULT_SETTINGS = {
     [CHOSEN_LOGO_PRIMARY_KEY]: 'satoriPremium',
     [CHOSEN_LOGO_SECONDARY_KEY]: 'tcs',
-    [HIGHLIGHT_JS_STYLE_KEY]: 'default'
+    [HIGHLIGHT_JS_STYLE_KEY]: 'atom-one-light'
 };
 
 const HIGHLIGHT_JS_STYLES = [
-    'default',
     'agate',
     'atom-one-dark',
     'atom-one-light',
