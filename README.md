@@ -16,7 +16,7 @@ have been there since the beginning (but for some reason, they aren't).
   * Auto-redirect to the recent contest when opening homepage URL
 * Problems:
   * "Results" link for each problem
-  * Highlighting solved problems
+  * Highlighting problems according to their best status (OK/ANS or other error)
   * Ability to hide particular problems and remembering hidden problem groups
 * Ranking:
   * Ability to sort ranking tables by given column
