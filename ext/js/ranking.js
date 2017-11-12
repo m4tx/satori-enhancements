@@ -85,7 +85,8 @@
         scrollCollapse: true,
         paging: false,
         fixedColumns: {
-            leftColumns: 1
+            leftColumns: 1,
+            heightMatch: 'auto'
         },
     });
     let dtElem = $('.dataTables_wrapper');
