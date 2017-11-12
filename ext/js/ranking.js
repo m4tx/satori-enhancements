@@ -37,7 +37,7 @@
     $('colgroup', table).remove();
 
     // Swap "Lp" and "Name" columns
-    if ($('th:eq(0)', table).text().trim() === 'Lp.') {
+    if (['Lp.', 'Rank'].includes($('th:eq(0)', table).text().trim())) {
         $.each($("tr", table), function () {
             $(this).children(":eq(1)").after($(this).children(":eq(0)"));
         });
