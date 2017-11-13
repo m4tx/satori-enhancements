@@ -67,6 +67,13 @@
     }
 
     function initializeSyntaxHighlighter() {
+        const downloadUrl = $('a[href^="/download/Submit/"]').attr('href');
+        const dotPos = downloadUrl.lastIndexOf('.');
+        if (dotPos !== -1) {
+            $('pre.literal-block')
+                .addClass(`lang-${downloadUrl.substr(dotPos + 1)}`);
+        }
+
         $('pre.literal-block').each(function (i, block) {
             browser.runtime.sendMessage({action: 'injectHighlightJsCss'});
             hljs.highlightBlock(block);
