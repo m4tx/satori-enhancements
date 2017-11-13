@@ -61,7 +61,7 @@ gulp.task('clean:vendor:hjsstyles', () =>
 gulp.task('clean:css', () => del.sync(path.join(EXT_DIR, 'css')));
 gulp.task('clean', ['clean:bin', 'clean:dist', 'clean:css']);
 
-gulp.task('build', ['sass', 'jshint']);
+gulp.task('build', ['sass', 'jshint', 'vendor']);
 
 gulp.task('vendor', ['clean:vendor', 'vendor:hjsstyles'], () => gulp
     .src(vendorFiles)
