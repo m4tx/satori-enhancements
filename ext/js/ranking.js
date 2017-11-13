@@ -68,12 +68,22 @@
     });
 
     // Initialize DataTable
+    const columnDefs = [];
+    const nameColIndex = $('thead th:contains("Name")', table).index();
+    columnDefs.push({
+        // Ensure "Name" column can be properly filtered with diacritics
+        "type": "string",
+        "targets": nameColIndex,
+    });
+
     $.fn.dataTable.ext.order.intl('pl');
     let dt = table.DataTable({
         dom: 'i<"#table-search-container">t',
         scrollY: Math.max($(window).height() - PAGE_CONTENT_HEIGHT,
             MIN_TABLE_HEIGHT) + "px",
         scrollX: true,
+
+        columnDefs: columnDefs,
 
         scrollCollapse: true,
         paging: false,
