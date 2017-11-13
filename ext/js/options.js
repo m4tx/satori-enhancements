@@ -47,16 +47,25 @@
     }
 
     function refreshHighlighterStylesheet() {
-        if (highlighterStylesheet !== undefined) {
-            highlighterStylesheet.remove();
-        }
         const newStyle = styleSelect.val();
+        let newHighlighterStylesheet;
+
         if (newStyle !== 'none') {
-            highlighterStylesheet = $(
+            newHighlighterStylesheet = $(
                 `<link rel="stylesheet"
                        href="vendor/bower/hjsstyles/${newStyle}.css"/>`);
-            $('head').append(highlighterStylesheet);
+            $('head').append(newHighlighterStylesheet);
+
         }
+
+        setTimeout(() => {
+            // Remove old stylesheet with timeout=0 so the new one has
+            // time to load
+            if (highlighterStylesheet !== undefined) {
+                highlighterStylesheet.remove();
+            }
+            highlighterStylesheet = newHighlighterStylesheet;
+        }, 0);
     }
 
     $('#syntax-highlighter-example').each(function (i, block) {
