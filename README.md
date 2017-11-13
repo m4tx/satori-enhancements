@@ -20,9 +20,8 @@ have been there since the beginning (but for some reason, they aren't).
   * Ability to hide particular problems and remembering hidden problem groups
 * Ranking:
   * Ability to sort ranking tables by given column
-  * Search in ranking
-  * Swapping "Name" with "Lp" ("Ordinal")/"Rank" columns
-  * Sticking the table header and leftmost column (name) when scrolling so they're always visible
+  * Search box to filter rows
+  * Sticking the table header and two leftmost columns (Rank/Lp and Name) when scrolling so they're always visible
 * Submit:
   * Auto-redirect to the latest results page after submitting a solution
 * Results:
