@@ -36,13 +36,6 @@
     // the table behavior very much and is obsolete since HTML5
     $('colgroup', table).remove();
 
-    // Swap "Lp" and "Name" columns
-    if (['Lp.', 'Rank'].includes($('th:eq(0)', table).text().trim())) {
-        $.each($("tr", table), function () {
-            $(this).children(":eq(1)").after($(this).children(":eq(0)"));
-        });
-    }
-
     // Add data-order attributes to provide valid sorting data for DataTable
     function findPointNumber(text) {
         // console.log(text);
@@ -85,7 +78,7 @@
         scrollCollapse: true,
         paging: false,
         fixedColumns: {
-            leftColumns: 1,
+            leftColumns: 2,
             heightMatch: 'auto'
         },
     });
