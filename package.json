@@ -46,8 +46,8 @@
     "@bower_components/datatables.net-fixedcolumns-dt": "DataTables/Dist-DataTables-FixedColumns-DataTables#^3.2.3",
     "@bower_components/datatables.net-plugins": "DataTables/Plugins#^1.10.16",
     "@bower_components/highlightjs": "components/highlightjs#^9.12.0",
-    "@bower_components/highlightjs-line-numbers.js": "wcoder/highlightjs-line-numbers.js#^2.1.0",
-    "@bower_components/jquery": "jquery/jquery-dist#>=1.7"
+    "highlightjs-line-numbers.js": "^2.2.0",
+    "jquery": "^3.3.1"
   },
   "engines": {
     "yarn": ">= 1.0.0"

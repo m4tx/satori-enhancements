@@ -12,10 +12,10 @@ let manifest = require('./ext/manifest.json');
 let config = require('./ext/js/config');
 
 let vendorFiles = [
-    'bower_components/jquery/dist/jquery.min.js',
+    'node_modules/jquery/dist/jquery.min.js',
     'bower_components/SpinKit/css/spinners/7-three-bounce.css',
     'bower_components/highlightjs/highlight.pack.min.js',
-    'bower_components/highlightjs-line-numbers.js/dist/' +
+    'node_modules/highlightjs-line-numbers.js/dist/' +
     'highlightjs-line-numbers.min.js',
     'bower_components/datatables.net/js/jquery.dataTables.min.js',
     'bower_components/datatables.net-dt/css/jquery.dataTables.min.css',
