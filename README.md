@@ -29,13 +29,13 @@ have been there since the beginning (but for some reason, they aren't).
   * Syntax highlighting with configurable style
 
 ## Building
-First, make sure you have git and [npm](https://nodejs.org/) installed. Then:
+First, make sure you have git and [yarn](https://yarnpkg.com/) installed. Then:
 ```
 $ git clone https://github.com/m4tx/satori-enhancements.git
 $ cd satori-enhancements
-$ npm install
+$ yarn
 ```
-`npm install` will automatically execute `gulp`, which will create `dist/`
+`yarn` will automatically execute `gulp`, which will create `dist/`
 directory with all necessary files, that can be used to pack or load extension
 inside Chrome. Executing `gulp compress` (assuming you have gulp installed
 globally) can also be used to put these files inside a zip package (inside
