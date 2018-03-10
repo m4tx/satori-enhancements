@@ -70,8 +70,11 @@
         const downloadUrl = $('a[href^="/download/Submit/"]').attr('href');
         const dotPos = downloadUrl.lastIndexOf('.');
         if (dotPos !== -1) {
-            $('pre.literal-block')
-                .addClass(`lang-${downloadUrl.substr(dotPos + 1)}`);
+            let lang = downloadUrl.substr(dotPos + 1);
+            if (lang === 'asm') {
+                lang = 'x86asm';
+            }
+            $('pre.literal-block').addClass(`lang-${lang}`);
         }
 
         $('pre.literal-block').each(function (i, block) {
