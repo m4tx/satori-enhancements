@@ -1,6 +1,6 @@
 {
   "name": "satori-enhancements",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "WebExtension that adds a few useful enhancements to Satori Online Judge website.",
   "main": "index.js",
   "scripts": {
@@ -46,6 +46,7 @@
     "@bower_components/datatables.net-fixedcolumns-dt": "DataTables/Dist-DataTables-FixedColumns-DataTables#^3.2.3",
     "@bower_components/datatables.net-plugins": "DataTables/Plugins#^1.10.16",
     "@bower_components/highlightjs": "components/highlightjs#^9.12.0",
+    "datatables.net-plugins": "git://github.com/DataTables/Plugins#284ebf1251809acdcd86cbcc533596811a6f0eeb",
     "highlightjs-line-numbers.js": "^2.2.0",
     "jquery": "^3.3.1"
   },

@@ -23,7 +23,7 @@ let vendorFiles = [
     '/diacritics-neutralise.js',
     'bower_components/datatables.net-fixedcolumns/js/dataTables.fixedColumns.min.js',
     'bower_components/datatables.net-fixedcolumns-dt/css/fixedColumns.dataTables.min.css',
-    'bower_components/datatables.net-plugins/sorting/intl.js',
+    'node_modules/datatables.net-plugins/sorting/intl.js',
 ];
 
 let highlightJsStyles = config.HIGHLIGHT_JS_STYLES.map(
