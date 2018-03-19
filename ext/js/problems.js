@@ -307,12 +307,14 @@
 
 
     // Highlighting solved tasks
-    const STATUS_ERR = 2;
-    const STATUS_OK = 1;
+    const STATUS_ERR = 3;
+    const STATUS_OK = 2;
+    const STATUS_QUE = 1;
     const STATUS_NONE = 1000;
     const STATUS_MAP = {
         [STATUS_ERR]: 'err',
         [STATUS_OK]: 'ok',
+        [STATUS_QUE]: 'que',
         [STATUS_NONE]: 'none',
     };
 
@@ -329,11 +331,14 @@
 
             const status = $('td.status', tr).text().trim();
             let statusInt = STATUS_NONE;
-            if (status.startsWith('100') || status.search('OK') !== -1) {
+            if (status.search('QUE') !== -1) {
+                statusInt = STATUS_QUE;
+            } else if (status.startsWith('100') || status.search('OK') !== -1) {
                 statusInt = STATUS_OK;
             } else {
                 statusInt = STATUS_ERR;
             }
+
             statuses[problemName] = Math.min(
                 statuses[problemName] || STATUS_NONE, statusInt);
 
@@ -341,7 +346,7 @@
             // immediately on next page refresh
             // We are not using storage.sync because status data can be easily
             // retrieved again so there's no need to sync it
-            browser.storage.local.set({[statusesStorageKey]: statuses});
+            browser.storage.local.set({ [statusesStorageKey]: statuses });
         }
         return statuses;
     }
