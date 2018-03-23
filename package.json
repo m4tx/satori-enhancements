@@ -1,6 +1,6 @@
 {
   "name": "satori-enhancements",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "WebExtension that adds a few useful enhancements to Satori Online Judge website.",
   "main": "index.js",
   "scripts": {
