@@ -318,6 +318,8 @@
         [STATUS_NONE]: 'none',
     };
 
+    const TEST_NUMBER_REGEX = /^(\d+) \/ \1$/;
+
     const statusesStorageKey = `statuses-${contestID}`;
 
     function parseResultsStatuses(html) {
@@ -333,7 +335,9 @@
             let statusInt = STATUS_NONE;
             if (status.search('QUE') !== -1) {
                 statusInt = STATUS_QUE;
-            } else if (status.startsWith('100') || status.search('OK') !== -1) {
+            } else if (status.startsWith('100') ||
+                status.search('OK') !== -1 ||
+                TEST_NUMBER_REGEX.test(status)) {
                 statusInt = STATUS_OK;
             } else {
                 statusInt = STATUS_ERR;
