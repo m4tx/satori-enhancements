@@ -319,6 +319,7 @@
     };
 
     const TEST_NUMBER_REGEX = /^(\d+) \/ \1$/;
+    const ACCURACY_REGEX = /^\d\.\d+$/;
 
     const statusesStorageKey = `statuses-${contestID}`;
 
@@ -337,7 +338,8 @@
                 statusInt = STATUS_QUE;
             } else if (status.startsWith('100') ||
                 status.search('OK') !== -1 ||
-                TEST_NUMBER_REGEX.test(status)) {
+                TEST_NUMBER_REGEX.test(status) ||
+                ACCURACY_REGEX.test(status)) {
                 statusInt = STATUS_OK;
             } else {
                 statusInt = STATUS_ERR;
