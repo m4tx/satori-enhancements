@@ -307,12 +307,14 @@
 
 
     // Highlighting solved tasks
-    const STATUS_ERR = 3;
+    const STATUS_ERR = 4;
+    const STATUS_INT = 3;
     const STATUS_OK = 2;
     const STATUS_QUE = 1;
     const STATUS_NONE = 1000;
     const STATUS_MAP = {
         [STATUS_ERR]: 'err',
+        [STATUS_INT]: 'int',
         [STATUS_OK]: 'ok',
         [STATUS_QUE]: 'que',
         [STATUS_NONE]: 'none',
@@ -341,6 +343,8 @@
                 TEST_NUMBER_REGEX.test(status) ||
                 ACCURACY_REGEX.test(status)) {
                 statusInt = STATUS_OK;
+            } else if (status.search('INT') !== -1) {
+                statusInt = STATUS_INT;
             } else {
                 statusInt = STATUS_ERR;
             }
