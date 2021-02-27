@@ -4,6 +4,7 @@
     browser.runtime.sendMessage({action: 'enablePageAction'});
 
     const BANNER_URL = browser.extension.getURL('images/satori_banner.png');
+    const SHITORI_BANNER_URL = browser.extension.getURL('images/shitori_banner.png');
     const TCS_LOGO_URL = browser.extension.getURL('images/tcslogo.svg');
     const ALT_TCS_LOGO_URL = browser.extension.getURL('images/alttcslogo.png');
 
@@ -16,6 +17,7 @@
         }).then(response => {
             let newLogoUrl = {
                 satoriPremium: BANNER_URL,
+                shitoriPremium: SHITORI_BANNER_URL,
                 tcs: TCS_LOGO_URL,
                 alternative: ALT_TCS_LOGO_URL,
             }[response[CHOSEN_LOGO_PRIMARY_KEY]];
