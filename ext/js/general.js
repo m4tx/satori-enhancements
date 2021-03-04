@@ -5,8 +5,12 @@
 
     const BANNER_URL = browser.extension.getURL('images/satori_banner.png');
     const SHITORI_BANNER_URL = browser.extension.getURL('images/shitori_banner.png');
+    const SUSPICIOUS_SATORI_BANNER_URL = browser.extension.getURL('images/suspicious_satori_banner.png');
+    const SUSPICIOUS_SHITORI_BANNER_URL = browser.extension.getURL('images/suspicious_shitori_banner.png');
     const TCS_LOGO_URL = browser.extension.getURL('images/tcslogo.svg');
+    const TCS_LOGO_WHITE_URL = browser.extension.getURL('images/tcslogo_white.svg');
     const ALT_TCS_LOGO_URL = browser.extension.getURL('images/alttcslogo.png');
+    const ALT_TCS_WHITE_LOGO_URL = browser.extension.getURL('images/alttcslogo_white.png');
 
     let storage = browser.storage.sync || browser.storage.local;
 
@@ -15,11 +19,15 @@
         storage.get({
             [CHOSEN_LOGO_PRIMARY_KEY]: DEFAULT_SETTINGS[CHOSEN_LOGO_PRIMARY_KEY]
         }).then(response => {
-            let newLogoUrl = {
+            const newLogoUrl = {
                 satoriPremium: BANNER_URL,
                 shitoriPremium: SHITORI_BANNER_URL,
+                suspiciousSatoriPremium: SUSPICIOUS_SATORI_BANNER_URL,
+                suspiciousShitoriPremium: SUSPICIOUS_SHITORI_BANNER_URL,
                 tcs: TCS_LOGO_URL,
+                tcsWhite: TCS_LOGO_WHITE_URL,
                 alternative: ALT_TCS_LOGO_URL,
+                alternativeWhite: ALT_TCS_WHITE_LOGO_URL,
             }[response[CHOSEN_LOGO_PRIMARY_KEY]];
             $('img[src="/files/satori_banner.png"]').attr('src', newLogoUrl);
         });
@@ -42,10 +50,16 @@
             if (chosenLogo === 'none') {
                 return;
             }
-            let url = chosenLogo === 'alternative' ?
-                ALT_TCS_LOGO_URL : TCS_LOGO_URL;
-            let logo = $('<img/>').attr('src', url);
-            let div = $('<div id="satoriEnhancementsTCSLogo"/>').append(logo);
+
+            const newLogoUrl = {
+                tcs: TCS_LOGO_URL,
+                tcsWhite: TCS_LOGO_WHITE_URL,
+                alternative: ALT_TCS_LOGO_URL,
+                alternativeWhite: ALT_TCS_WHITE_LOGO_URL,
+            }[chosenLogo];
+
+            const logo = $('<img/>').attr('src', newLogoUrl);
+            const div = $('<div id="satoriEnhancementsTCSLogo"/>').append(logo);
             $('#navigationPanel').after(div);
         });
     }
