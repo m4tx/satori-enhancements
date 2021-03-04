@@ -53,39 +53,55 @@ gulp.task('jshint', function () {
         .pipe(jshint.reporter('default'));
 });
 
-gulp.task('clean:bin', () => del.sync('bin'));
-gulp.task('clean:dist', () => del.sync('dist'));
-gulp.task('clean:vendor', () => del.sync(path.join(EXT_DIR, 'vendor/bower')));
-gulp.task('clean:vendor:hjsstyles', () =>
-    del.sync(path.join(EXT_DIR, 'vendor/bower/hjsstyles')));
-gulp.task('clean:css', () => del.sync(path.join(EXT_DIR, 'css')));
-gulp.task('clean', ['clean:bin', 'clean:dist', 'clean:css']);
+gulp.task('clean:bin', done => {
+    del.sync('bin');
+    done();
+});
+gulp.task('clean:dist', done => {
+    del.sync('dist')
+    done();
+});
+gulp.task('clean:vendor', done => {
+    del.sync(path.join(EXT_DIR, 'vendor/bower'));
+    done();
+});
+gulp.task('clean:vendor:hjsstyles', done => {
+    del.sync(path.join(EXT_DIR, 'vendor/bower/hjsstyles'));
+    done();
+});
+gulp.task('clean:css', done => {
+    del.sync(path.join(EXT_DIR, 'css'));
+    done();
+});
+gulp.task('clean', gulp.series('clean:bin', 'clean:dist', 'clean:css'));
 
-gulp.task('build', ['sass', 'jshint', 'vendor']);
-
-gulp.task('vendor', ['clean:vendor', 'vendor:hjsstyles'], () => gulp
-    .src(vendorFiles)
-    .pipe(gulp.dest(path.join(EXT_DIR, 'vendor/bower')))
-);
-gulp.task('vendor:hjsstyles', ['clean:vendor:hjsstyles'], () => gulp
+gulp.task('vendor:hjsstyles', gulp.series('clean:vendor:hjsstyles', () => gulp
     .src(highlightJsStyles)
     .pipe(prefixCss('.mainsphinx'))
     .pipe(gulp.dest(path.join(EXT_DIR, 'vendor/bower/hjsstyles')))
-);
-gulp.task('dist', ['build', 'clean:dist'], () => gulp
+));
+
+gulp.task('vendor', gulp.series('clean:vendor', 'vendor:hjsstyles', () => gulp
+    .src(vendorFiles)
+    .pipe(gulp.dest(path.join(EXT_DIR, 'vendor/bower')))
+));
+
+gulp.task('build', gulp.parallel('sass', 'jshint', 'vendor'));
+
+gulp.task('dist', gulp.series('build', 'clean:dist', () => gulp
     .src(distFiles, {base: EXT_DIR})
     .pipe(gulp.dest('dist'))
-);
+));
 
-gulp.task('compress', ['dist'], () => gulp
+gulp.task('compress', gulp.series('dist', () => gulp
     .src('dist/**/*')
     .pipe(zip('satori-enhancements-' + manifest.version + '.zip'))
     .pipe(gulp.dest('bin'))
-);
+));
 
-gulp.task('watch', ['build'], () => {
+gulp.task('watch', gulp.series('build', () => {
     gulp.watch(path.join(EXT_DIR, 'scss/**/*.scss'), ['sass']);
     gulp.watch(path.join(EXT_DIR, 'js/**/*.js'), ['jshint']);
-});
+}));
 
-gulp.task('default', ['dist']);
+gulp.task('default', gulp.series('dist'));

@@ -7,6 +7,13 @@
 
   "minimum_chrome_version": "62",
 
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "satori-enhancements@m4tx.pl",
+      "strict_min_version": "42.0"
+    }
+  },
+
   "icons": {
     "16": "icon16.png",
     "48": "icon48.png",

@@ -29,12 +29,12 @@
   "homepage": "https://github.com/m4tx/satori-enhancements#readme",
   "devDependencies": {
     "bower": "^1.8.4",
-    "del": "^3.0.0",
-    "gulp": "^3.9.1",
+    "del": "^6.0.0",
+    "gulp": "^4.0.2",
     "gulp-jshint": "^2.1.0",
     "gulp-prefix-css": "0.0.4",
     "gulp-sass": "^4.0.2",
-    "gulp-zip": "^4.2.0",
+    "gulp-zip": "^5.0.2",
     "jshint": "^2.9.6"
   },
   "dependencies": {
