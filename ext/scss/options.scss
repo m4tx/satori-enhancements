@@ -6,7 +6,7 @@ h2:not(:first-child) {
   & > .image-chooser-tile {
     display: inline-block;
     text-align: center;
-    margin-right: 20px;
+    margin: 0 20px 20px 0;
 
     .image-chooser-content {
       width: 96px;
@@ -15,6 +15,10 @@ h2:not(:first-child) {
       display: flex;
       justify-content: center;
       align-items: center;
+    }
+
+    .image-chooser-content.bg-dark {
+      background-color: #000;
     }
 
     .image-chooser-content img {
