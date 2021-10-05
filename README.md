@@ -14,6 +14,7 @@ have been there since the beginning (but for some reason, they aren't).
   * Improving styles (e.g. using more distinctive link color)
   * Adding tab-order in forms for quicker navigation
   * Auto-redirect to the recent contest when opening homepage URL
+  * Maintain login state between browsing sessions
 * Problems:
   * "Results" link for each problem
   * Highlighting problems according to their best status (OK/ANS or other error)
