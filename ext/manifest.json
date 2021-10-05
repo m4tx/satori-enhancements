@@ -32,6 +32,7 @@
     "notifications",
     "webRequest",
     "webRequestBlocking",
+    "cookies",
     "*://satori.tcs.uj.edu.pl/*"
   ],
 

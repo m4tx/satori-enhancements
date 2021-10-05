@@ -216,9 +216,60 @@
         });
     }
 
+    const satoriDomain = new URL(SATORI_URL_HTTPS).hostname;
+
+    function updateCookie(cookie) {
+        const newCookie = {
+            // TODO: Allow specifying custom duration
+            expirationDate: Math.round(Date.now() / 1000) + 30 * 24 * 60 * 60,
+            httpOnly: cookie.httpOnly,
+            name: cookie.name,
+            path: cookie.path,
+            sameSite: cookie.sameSite,
+            secure: cookie.secure,
+            storeId: cookie.storeId,
+            value: cookie.value,
+            url: SATORI_URL_HTTPS,
+        }
+        return browser.cookies.set(newCookie);
+    }
+
+    function getTokenCookies() {
+        return browser.cookies.getAll({
+            domain: satoriDomain,
+            name: 'satori_token',
+            path: '/'
+        })
+    }
+
+    function updateExistingCookie() {
+        return getTokenCookies().then((cookies) => {
+            if (cookies.length === 0) return;
+            if (cookies.length > 1) {
+                console.warn('Too many satori_token cookies');
+                return;
+            }
+            const [cookie] = cookies;
+            if (cookie.expirationDate === undefined) return updateCookie(cookie);
+        });
+    }
+
+    function setUpSessionCookies() {
+        updateExistingCookie().catch(console.error);
+        browser.cookies.onChanged.addListener(({ removed, cookie }) => {
+            if (
+                !removed &&
+                cookie.domain === satoriDomain &&
+                cookie.name === 'satori_token' &&
+                cookie.path === '/'
+            ) updateExistingCookie().catch(console.error);
+        });
+    }
+
     retrieveLastContestID();
     setUpLastContestRedirect();
     setUpSubmitRedirect();
+    setUpSessionCookies();
 
     browser.runtime.onMessage.addListener((request, sender) => {
         if (request.action === 'enablePageAction') {
