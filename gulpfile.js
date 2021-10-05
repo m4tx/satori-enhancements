@@ -3,7 +3,7 @@ const EXT_DIR = 'ext';
 let gulp = require('gulp');
 let path = require('path');
 let del = require('del');
-let sass = require('gulp-sass');
+let sass = require('gulp-sass')(require('sass'));
 let jshint = require('gulp-jshint');
 let zip = require('gulp-zip');
 let prefixCss = require('gulp-prefix-css');
@@ -42,7 +42,9 @@ let distFiles = [
 ].map(file => path.join(EXT_DIR, file));
 
 gulp.task('sass', function () {
-    return gulp.src(path.join(EXT_DIR, 'scss/**/*.scss'))
+    return gulp.src(path.join(EXT_DIR, 'scss/**/*.scss'), {
+        base: path.join(EXT_DIR, 'scss')
+    })
         .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest(path.join(EXT_DIR, 'css')))
 });

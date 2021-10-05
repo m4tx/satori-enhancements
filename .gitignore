@@ -9,3 +9,5 @@ yarn-error.log
 # Chrome extension & private key (it shouldn't actually be here, but just in case)
 *.crx
 *.pem
+
+.idea
