@@ -218,20 +218,33 @@
 
     const satoriDomain = new URL(SATORI_URL_HTTPS).hostname;
 
+    function getKeepSignedInDuration() {
+        return storage.get({
+            [KEEP_SIGNED_IN_DURATION_KEY]: DEFAULT_SETTINGS[KEEP_SIGNED_IN_DURATION_KEY],
+        }).then((response) => {
+            const duration = response[KEEP_SIGNED_IN_DURATION_KEY];
+            if (duration === 'none') return null;
+            return parseInt(duration, 10);
+        });
+    }
+
     function updateCookie(cookie) {
-        const newCookie = {
-            // TODO: Allow specifying custom duration
-            expirationDate: Math.round(Date.now() / 1000) + 30 * 24 * 60 * 60,
-            httpOnly: cookie.httpOnly,
-            name: cookie.name,
-            path: cookie.path,
-            sameSite: cookie.sameSite,
-            secure: cookie.secure,
-            storeId: cookie.storeId,
-            value: cookie.value,
-            url: SATORI_URL_HTTPS,
-        }
-        return browser.cookies.set(newCookie);
+        return getKeepSignedInDuration()
+            .then((duration) => {
+                if (duration === null) return;
+                const newCookie = {
+                    expirationDate: Math.round(Date.now() / 1000) + duration * 24 * 60 * 60,
+                    httpOnly: cookie.httpOnly,
+                    name: cookie.name,
+                    path: cookie.path,
+                    sameSite: cookie.sameSite,
+                    secure: cookie.secure,
+                    storeId: cookie.storeId,
+                    value: cookie.value,
+                    url: SATORI_URL_HTTPS,
+                };
+                return browser.cookies.set(newCookie);
+            });
     }
 
     function getTokenCookies() {
@@ -239,7 +252,7 @@
             domain: satoriDomain,
             name: 'satori_token',
             path: '/'
-        })
+        });
     }
 
     function updateExistingCookie() {
@@ -250,7 +263,9 @@
                 return;
             }
             const [cookie] = cookies;
-            if (cookie.expirationDate === undefined) return updateCookie(cookie);
+            if (
+                cookie.expirationDate === undefined && cookie.value !== ''
+            ) return updateCookie(cookie);
         });
     }
 

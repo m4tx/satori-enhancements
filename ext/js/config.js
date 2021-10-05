@@ -7,11 +7,13 @@ const PROBLEM_URL_REGEX =
 const CHOSEN_LOGO_PRIMARY_KEY = 'chosenLogo_primary';
 const CHOSEN_LOGO_SECONDARY_KEY = 'chosenLogo_secondary';
 const HIGHLIGHT_JS_STYLE_KEY = 'highlightJsStyle';
+const KEEP_SIGNED_IN_DURATION_KEY = 'keepSignedInDuration';
 
 const DEFAULT_SETTINGS = {
     [CHOSEN_LOGO_PRIMARY_KEY]: 'satoriPremium',
     [CHOSEN_LOGO_SECONDARY_KEY]: 'tcs',
-    [HIGHLIGHT_JS_STYLE_KEY]: 'atom-one-light'
+    [HIGHLIGHT_JS_STYLE_KEY]: 'atom-one-light',
+    [KEEP_SIGNED_IN_DURATION_KEY]: 'none'
 };
 
 const HIGHLIGHT_JS_STYLES = [

@@ -8,6 +8,7 @@
     };
     let styleSelect = $('select#hjsstyle');
     let highlighterStylesheet;
+    let signedInDurationSelect = $('select#keepSignedInDuration');
 
     function saveLogo(chooserName) {
         storage.set({
@@ -26,6 +27,7 @@
                     .prop('checked', true);
             }
             styleSelect.val(highlightJsStyle);
+            signedInDurationSelect.val(items[KEEP_SIGNED_IN_DURATION_KEY]);
 
             refreshHighlighterStylesheet();
         });
@@ -45,6 +47,13 @@
             highlightJsStyle: styleSelect.val()
         });
     }
+
+    function saveKeepSignedInDuration() {
+        storage.set({
+            [KEEP_SIGNED_IN_DURATION_KEY]: signedInDurationSelect.val()
+        });
+    }
+
 
     function refreshHighlighterStylesheet() {
         const newStyle = styleSelect.val();
@@ -81,4 +90,5 @@
     }
     styleSelect.change(refreshHighlighterStylesheet);
     styleSelect.change(saveStyle);
+    signedInDurationSelect.change(saveKeepSignedInDuration);
 })();
