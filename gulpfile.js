@@ -1,4 +1,5 @@
 const EXT_DIR = 'ext';
+const HIGHLIGHT_STYLES_DIR = 'bower_components/highlightjs/styles';
 
 let gulp = require('gulp');
 let path = require('path');
@@ -27,7 +28,7 @@ let vendorFiles = [
 ];
 
 let highlightJsStyles = config.HIGHLIGHT_JS_STYLES.map(
-    x => path.join('bower_components/highlightjs/styles', x) + '.css');
+    x => path.join(HIGHLIGHT_STYLES_DIR, x) + '.css');
 
 let distFiles = [
     'manifest.json',
@@ -78,7 +79,9 @@ gulp.task('clean:css', done => {
 gulp.task('clean', gulp.series('clean:bin', 'clean:dist', 'clean:css'));
 
 gulp.task('vendor:hjsstyles', gulp.series('clean:vendor:hjsstyles', () => gulp
-    .src(highlightJsStyles)
+    .src(highlightJsStyles, {
+      base: HIGHLIGHT_STYLES_DIR,
+    })
     .pipe(prefixCss('.mainsphinx'))
     .pipe(gulp.dest(path.join(EXT_DIR, 'vendor/bower/hjsstyles')))
 ));
