@@ -3,13 +3,13 @@
 
   "name": "Satori Enhancements",
   "description": "Adds a few useful enhancements to Satori Online Judge website.",
-  "version": "1.2.6",
+  "version": "1.3",
 
   "minimum_chrome_version": "62",
 
   "browser_specific_settings": {
     "gecko": {
-      "id": "satori-enhancements@m4tx.pl",
+      "id": "{a7a2f4f4-8648-4221-8e88-af047e0fe5ca}",
       "strict_min_version": "42.0"
     }
   },
@@ -27,7 +27,6 @@
   },
 
   "permissions": [
-    "activeTab",
     "storage",
     "notifications",
     "webRequest",
