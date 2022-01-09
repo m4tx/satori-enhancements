@@ -216,9 +216,75 @@
         });
     }
 
+    const satoriDomain = new URL(SATORI_URL_HTTPS).hostname;
+
+    function getKeepSignedInDuration() {
+        return storage.get({
+            [KEEP_SIGNED_IN_DURATION_KEY]: DEFAULT_SETTINGS[KEEP_SIGNED_IN_DURATION_KEY],
+        }).then((response) => {
+            const duration = response[KEEP_SIGNED_IN_DURATION_KEY];
+            if (duration === 'none') return null;
+            return parseInt(duration, 10);
+        });
+    }
+
+    function updateCookie(cookie) {
+        return getKeepSignedInDuration()
+            .then((duration) => {
+                if (duration === null) return;
+                const newCookie = {
+                    expirationDate: Math.round(Date.now() / 1000) + duration * 24 * 60 * 60,
+                    httpOnly: cookie.httpOnly,
+                    name: cookie.name,
+                    path: cookie.path,
+                    sameSite: cookie.sameSite,
+                    secure: cookie.secure,
+                    storeId: cookie.storeId,
+                    value: cookie.value,
+                    url: SATORI_URL_HTTPS,
+                };
+                return browser.cookies.set(newCookie);
+            });
+    }
+
+    function getTokenCookies() {
+        return browser.cookies.getAll({
+            domain: satoriDomain,
+            name: 'satori_token',
+            path: '/'
+        });
+    }
+
+    function updateExistingCookie() {
+        return getTokenCookies().then((cookies) => {
+            if (cookies.length === 0) return;
+            if (cookies.length > 1) {
+                console.warn('Too many satori_token cookies');
+                return;
+            }
+            const [cookie] = cookies;
+            if (
+                cookie.expirationDate === undefined && cookie.value !== ''
+            ) return updateCookie(cookie);
+        });
+    }
+
+    function setUpSessionCookies() {
+        updateExistingCookie().catch(console.error);
+        browser.cookies.onChanged.addListener(({ removed, cookie }) => {
+            if (
+                !removed &&
+                cookie.domain === satoriDomain &&
+                cookie.name === 'satori_token' &&
+                cookie.path === '/'
+            ) updateExistingCookie().catch(console.error);
+        });
+    }
+
     retrieveLastContestID();
     setUpLastContestRedirect();
     setUpSubmitRedirect();
+    setUpSessionCookies();
 
     browser.runtime.onMessage.addListener((request, sender) => {
         if (request.action === 'enablePageAction') {
