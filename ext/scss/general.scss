@@ -22,3 +22,9 @@ body .mainsphinx {
     color: $link-color;
   }
 }
+
+.button[disabled], .button[disabled]:hover {
+  background: #bbb;
+  color: #eee;
+  cursor: default;
+}
