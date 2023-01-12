@@ -104,15 +104,6 @@
       "css": ["css/problems.css"]
     },
     {
-      "matches": ["*://satori.tcs.uj.edu.pl/contest/*/results"],
-      "js": [
-        "vendor/browser-polyfill.js",
-        "vendor/bower/jquery.min.js",
-        "js/results-list.js"
-      ],
-      "run_at": "document_end"
-    },
-    {
       "matches": ["*://satori.tcs.uj.edu.pl/contest/*/results/*"],
       "js": [
         "vendor/browser-polyfill.js",

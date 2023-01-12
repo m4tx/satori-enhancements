@@ -13,14 +13,6 @@
      * @type {Set}
      */
     let satoriTabs = new Set();
-    /**
-     * A set used to store IDs of contests where we should redirect to the
-     * latest submit. Most of the time this object should be empty, as we'll
-     * add an ID after submit and then almost immediately remove it when
-     * browser gets the results page.
-     * @type {Set}
-     */
-    let contestResultsRedirects = new Set();
 
     function displayStatusNotification(submitID, problemCode, status) {
         browser.notifications.create({
@@ -115,16 +107,6 @@
     }
 
     /**
-     * Check whether we should redirect to the latest submit for given contest
-     * ID (and mark it as "redirected", so we won't redirect again).
-     * @param {string} contestID ID of the contest to check
-     * @returns {boolean} whether or not we should redirect
-     */
-    function shouldRedirectToSubmit(contestID) {
-        return contestResultsRedirects.delete(contestID);
-    }
-
-    /**
      * Add an onBeforeRequest listener that redirects to the last contest
      * if the user just entered Satori webpage.
      *
@@ -164,39 +146,6 @@
                 types: ['main_frame']
             },
             ['blocking']
-        );
-    }
-
-    /**
-     * Add an onCompleted listener that looks for submit POST requests and
-     * stores contest IDs of them (so we know we should redirect the user to
-     * their latest submit).
-     */
-    function setUpSubmitRedirect() {
-        browser.webRequest.onBeforeRedirect.addListener(
-            function (details) {
-                if (details.method !== 'POST') {
-                    return;
-                }
-
-                let redirectURL;
-                for (let header of details.responseHeaders) {
-                    if (header.name.toLowerCase() === 'location') {
-                        redirectURL = header.value;
-                        break;
-                    }
-                }
-
-                if (typeof redirectURL !== 'undefined' &&
-                    redirectURL !== null) {
-                    contestResultsRedirects.add(getContestID(redirectURL));
-                }
-            },
-            {
-                urls: ['*://satori.tcs.uj.edu.pl/contest/*/submit*'],
-                types: ['main_frame']
-            },
-            ['responseHeaders']
         );
     }
 

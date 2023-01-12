@@ -30,6 +30,29 @@
     codeTextarea.on('input', updatePickers);
     updatePickers();
 
+    /**
+     * Parse given HTML and return URL of the results page of the latest submit.
+     *
+     * @param {string} html HTML to parse
+     * @returns {string} Latest submit result URL
+     */
+    function parseResultListHTML(html) {
+        for (let x of $.parseHTML(html)) {
+            let resultsLink = $(x).find('div#content table.results tbody > ' +
+                'tr:nth-child(2) > td:first > a');
+            if (resultsLink.length) {
+                return resultsLink.attr('href');
+            }
+        }
+        throw new Error('Last submit result URL not found');
+    }
+
+    const getLatestSubmit = async (url) => {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`HTTP Error ${response.status}`);
+        return parseResultListHTML(await response.text());
+    };
+
     form.on('submit', async (event) => {
         event.preventDefault();
         if (loading) return;
@@ -51,7 +74,12 @@
                 body: formData,
             });
             if (response.ok) {
-                window.location = response.url;
+                try {
+                    window.location = await getLatestSubmit(response.url);
+                } catch (error) {
+                    console.error(error);
+                    window.location = response.url;
+                }
                 return;
             }
             alert("Bład: " + response.status);
