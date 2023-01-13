@@ -4,6 +4,11 @@
   table {
     width: 100%;
 
+    td:first-child, th:first-child {
+      width: 0;
+      padding-right: 5px;
+    }
+
     td {
       select, input, textarea {
         width: 100%;
