@@ -1,6 +1,8 @@
 (function () {
     'use strict';
 
+    const contestID = getContestID(document.location.href);
+
     $('#content table tr:nth-child(1) th').text('Problem:');
     $('#content table tr:nth-child(2) th').text('File:');
     $('#content table').append(
@@ -57,7 +59,8 @@
         event.preventDefault();
         if (loading) return;
         const formData = new FormData();
-        formData.set('problem', problemSelect.val());
+        const problemID = problemSelect.val();
+        formData.set('problem', problemID);
         if (filePicker.val() !== '') {
             formData.set('codefile', filePicker[0].files[0]);
         } else if (codeTextarea.val() !== '') {
@@ -72,17 +75,20 @@
             const response = await fetch(form.attr('action'), {
                 method: 'POST',
                 body: formData,
+                redirect: 'manual',
             });
-            if (response.ok) {
+            if (response.type === 'opaqueredirect') {
                 try {
-                    window.location = await getLatestSubmit(response.url);
+                    window.location = await getLatestSubmit(
+                        `${SATORI_URL_HTTPS}contest/${contestID}/results?results_filter_problem=${problemID}`
+                    );
                 } catch (error) {
                     console.error(error);
                     window.location = response.url;
                 }
                 return;
             }
-            alert("Bład: " + response.status);
+            alert("Błąd: HTTP Status " + response.status);
         } catch (error) {
             alert("Błąd: " + error.message);
             console.error(error);
