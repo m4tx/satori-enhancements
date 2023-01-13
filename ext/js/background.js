@@ -232,7 +232,6 @@
 
     retrieveLastContestID();
     setUpLastContestRedirect();
-    setUpSubmitRedirect();
     setUpSessionCookies();
 
     browser.runtime.onMessage.addListener((request, sender) => {
