@@ -22,6 +22,8 @@
      */
     let contestResultsRedirects = new Set();
 
+    const contestProblemList = {};
+
     function displayStatusNotification(submitID, problemCode, status) {
         browser.notifications.create({
             type: 'basic',
@@ -282,15 +284,11 @@
     }
 
     function saveContestProblemList(contestID, problems) {
-        storage.set({
-            [`contest-problems/${contestID}`]: problems
-        });
-        console.log(storage.get());
+        contestProblemList[contestID] = problems;
     }
 
     async function getProblemList(contestID) {
-        const key = `contest-problems/${contestID}`;
-        return (await storage.get(key))[key] ?? {};
+        return contestProblemList[contestID];
     }
 
     retrieveLastContestID();
