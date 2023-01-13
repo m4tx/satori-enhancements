@@ -104,6 +104,19 @@
       "css": ["css/problems.css"]
     },
     {
+      "matches": ["*://satori.tcs.uj.edu.pl/contest/*/problems/*"],
+      "js": [
+        "vendor/browser-polyfill.js",
+        "vendor/bower/jquery.min.js",
+        "js/common.js",
+        "js/problem.js"
+      ],
+      "run_at": "document_end",
+      "css": [
+        "css/problem.css"
+      ]
+    },
+    {
       "matches": [
         "*://satori.tcs.uj.edu.pl/contest/*/results",
         "*://satori.tcs.uj.edu.pl/contest/*/results?*"

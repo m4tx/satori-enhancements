@@ -4,12 +4,26 @@
  * @returns {string} contest ID
  */
 function getContestID(url) {
-    return PROBLEM_URL_REGEX.exec(url)[1];
+    return CONTEST_URL_REGEX.exec(url)[1];
+}
+
+/**
+ * Parse given problem URL and return the contest and problem ID.
+ * @param {string} url URL to parse
+ * @returns {object} contest and problem ID
+ */
+function getContestAndProblemID(url) {
+    const match = PROBLEM_URL_REGEX.exec(url);
+    return {
+        contestID: match[1],
+        problemID: match[2],
+    }
 }
 
 if (typeof module !== 'undefined') {
     module.exports = {
-        getContestID
+        getContestID,
+        getContestAndProblemID,
     };
 }
 
