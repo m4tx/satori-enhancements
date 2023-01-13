@@ -88,7 +88,7 @@
     const submitUrlRegex = /submit\?select=(\d+)/;
 
     initializeSyntaxHighlighter();
-    updateProblemList(false).then((submitUrl) => {
+    insertProblemLinks(false).then((submitUrl) => {
         if (!submitUrl) return;
         const submitID = submitUrlRegex.exec(submitUrl)[1];
         const submitButton = $('<a class="button">Submit another</a>')

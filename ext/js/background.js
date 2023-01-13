@@ -288,7 +288,15 @@
     }
 
     async function getProblemList(contestID) {
-        // TODO: Fetch problem list
+        if (!contestProblemList[contestID]) {
+            try {
+                const response = await fetch(`${SATORI_URL_HTTPS}contest/${contestID}/problems`);
+                if (!response.ok) throw new Error(`HTTP Status ${response.status}`);
+                contestProblemList[contestID] = parseProblemList($.parseHTML(await response.text()));
+            } catch (error) {
+                console.error(error);
+            }
+        }
         return contestProblemList[contestID] ?? {};
     }
 

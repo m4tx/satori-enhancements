@@ -43,6 +43,7 @@
   "background": {
     "scripts": [
       "vendor/browser-polyfill.js",
+      "vendor/bower/jquery.min.js",
       "js/config.js",
       "js/common.js",
       "js/background.js"

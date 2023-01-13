@@ -261,24 +261,12 @@
     const contestID = getContestID(document.location.href);
     const resultsURL = `${SATORI_URL_HTTPS}contest/${contestID}/results`;
 
-    function saveProblemList() {
-        const problems = Object.fromEntries($.find('#content table.results tr:not(:first-of-type)').map((el) => [
-            $(el).find('td:nth-child(1)').text(),
-            {
-                title:      $(el).find('td:nth-child(2)').text(),
-                href:       $(el).find('td:nth-child(2) a').attr('href'),
-                pdfHref:    $(el).find('td:nth-child(3) a').attr('href'),
-                submitHref: $(el).find('td:nth-child(5) a').attr('href'),
-            }
-        ]));
-        browser.runtime.sendMessage({
-            action: 'saveContestProblemList',
-            contestID,
-            problems,
-        });
-    }
+    browser.runtime.sendMessage({
+        action: 'saveContestProblemList',
+        contestID,
+        problems: parseProblemList([$]),
+    });
 
-    saveProblemList();
     hideProblemGroups();
     connectGroupHideLinks();
     const table = $('table.results');

@@ -27,7 +27,23 @@ if (typeof module !== 'undefined') {
     };
 }
 
-async function updateProblemList(isResultList) {
+function parseProblemList(jqueryHandles) {
+    return Object.fromEntries(jqueryHandles.flatMap(
+        (el) => [...$(el).find('#content table.results tr:not(:first-of-type)')].map(
+            (tr) => [
+                $(tr).find('td:nth-child(1)').text(),
+                {
+                    title: $(tr).find('td:nth-child(2)').text(),
+                    href: $(tr).find('td:nth-child(2) a').attr('href'),
+                    pdfHref: $(tr).find('td:nth-child(3) a').attr('href'),
+                    submitHref: $(tr).find('td:nth-child(5) a').attr('href'),
+                }
+            ]
+        ))
+    );
+}
+
+async function insertProblemLinks(isResultList) {
     const column = isResultList ? 2 : 3;
     const problems = await browser.runtime.sendMessage({
         action: 'getContestProblemList',
