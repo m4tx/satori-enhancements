@@ -105,8 +105,8 @@ gulp.task('compress', gulp.series('dist', () => gulp
 ));
 
 gulp.task('watch', gulp.series('build', () => {
-    gulp.watch(path.join(EXT_DIR, 'scss/**/*.scss'), gulp.series('sass'));
-    gulp.watch(path.join(EXT_DIR, 'js/**/*.js'), gulp.series('jshint'));
+    gulp.watch(path.join(EXT_DIR, 'scss/**/*.scss'), ['sass']);
+    gulp.watch(path.join(EXT_DIR, 'js/**/*.js'), ['jshint']);
 }));
 
 gulp.task('default', gulp.series('dist'));
