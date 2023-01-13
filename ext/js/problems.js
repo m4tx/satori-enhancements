@@ -257,16 +257,30 @@
             });
     }
 
-    hideProblemGroups();
-    connectGroupHideLinks();
-    const table = $('table.results');
-    table.each((index, table) => processProblemGroup($(table)));
-
-
     // "Results" constants
     const contestID = getContestID(document.location.href);
     const resultsURL = `${SATORI_URL_HTTPS}contest/${contestID}/results`;
 
+    function saveProblemList() {
+        const problems = Object.fromEntries($.find('#content table.results tr:not(:first-of-type)').map((el) => [
+            $(el).find('td:nth-child(1)').text(),
+            {
+                href: $(el).find('td:nth-child(2) a').attr('href'),
+                title: $(el).find('td:nth-child(2)').text(),
+            }
+        ]));
+        browser.runtime.sendMessage({
+            action: 'saveContestProblemList',
+            contestID,
+            problems,
+        });
+    }
+
+    saveProblemList();
+    hideProblemGroups();
+    connectGroupHideLinks();
+    const table = $('table.results');
+    table.each((index, table) => processProblemGroup($(table)));
 
     // "Results" button
     const submitUrlRegex = /submit\?select=(\d+)/;

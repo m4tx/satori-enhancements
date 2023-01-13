@@ -281,6 +281,18 @@
         });
     }
 
+    function saveContestProblemList(contestID, problems) {
+        storage.set({
+            [`contest-problems/${contestID}`]: problems
+        });
+        console.log(storage.get());
+    }
+
+    async function getProblemList(contestID) {
+        const key = `contest-problems/${contestID}`;
+        return (await storage.get(key))[key] ?? {};
+    }
+
     retrieveLastContestID();
     setUpLastContestRedirect();
     setUpSubmitRedirect();
@@ -307,6 +319,10 @@
             });
         } else if (request.action === 'injectHighlightJsCss') {
             injectHighlightJsCss(sender.tab);
+        } else if (request.action === 'saveContestProblemList') {
+            saveContestProblemList(request.contestID, request.problems);
+        } else if (request.action === 'getContestProblemList') {
+            return getProblemList(request.contestID);
         }
         return new Promise(resolve => resolve(null));
     });

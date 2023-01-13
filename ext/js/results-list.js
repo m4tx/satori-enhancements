@@ -9,4 +9,6 @@
                 'tr:nth-child(2) > td:first > a').attr('href');
         }
     });
+
+    updateProblemList(2);
 })();

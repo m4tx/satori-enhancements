@@ -104,10 +104,14 @@
       "css": ["css/problems.css"]
     },
     {
-      "matches": ["*://satori.tcs.uj.edu.pl/contest/*/results"],
+      "matches": [
+        "*://satori.tcs.uj.edu.pl/contest/*/results",
+        "*://satori.tcs.uj.edu.pl/contest/*/results?*"
+      ],
       "js": [
         "vendor/browser-polyfill.js",
         "vendor/bower/jquery.min.js",
+        "js/common.js",
         "js/results-list.js"
       ],
       "run_at": "document_end"
@@ -119,6 +123,7 @@
         "vendor/bower/jquery.min.js",
         "vendor/bower/highlight.pack.min.js",
         "vendor/bower/highlightjs-line-numbers.min.js",
+        "js/common.js",
         "js/results.js"
       ],
       "run_at": "document_end",

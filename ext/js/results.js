@@ -85,4 +85,5 @@
     }
 
     initializeSyntaxHighlighter();
+    updateProblemList(3);
 })();
