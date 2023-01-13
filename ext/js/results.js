@@ -85,5 +85,5 @@
     }
 
     initializeSyntaxHighlighter();
-    updateProblemList(3);
+    updateProblemList(false);
 })();

@@ -265,8 +265,10 @@
         const problems = Object.fromEntries($.find('#content table.results tr:not(:first-of-type)').map((el) => [
             $(el).find('td:nth-child(1)').text(),
             {
-                href: $(el).find('td:nth-child(2) a').attr('href'),
-                title: $(el).find('td:nth-child(2)').text(),
+                title:      $(el).find('td:nth-child(2)').text(),
+                href:       $(el).find('td:nth-child(2) a').attr('href'),
+                pdfHref:    $(el).find('td:nth-child(3) a').attr('href'),
+                submitHref: $(el).find('td:nth-child(5) a').attr('href'),
             }
         ]));
         browser.runtime.sendMessage({

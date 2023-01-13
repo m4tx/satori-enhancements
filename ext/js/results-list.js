@@ -10,5 +10,5 @@
         }
     });
 
-    updateProblemList(2);
+    updateProblemList(true);
 })();

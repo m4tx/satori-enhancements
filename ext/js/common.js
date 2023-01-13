@@ -13,19 +13,24 @@ if (typeof module !== 'undefined') {
     };
 }
 
-function updateProblemList(column) {
+function updateProblemList(isResultList) {
+    const column = isResultList ? 2 : 3;
     browser.runtime.sendMessage({
         action: 'getContestProblemList',
         contestID: getContestID(document.location.href),
     }).then((problems) => {
-        console.log(getContestID(document.location.href), problems);
         for (const el of $(`table.results > tbody > tr:not(:first-of-type) > td:nth-child(${column})`)) {
             const code = $(el).text();
             const problem = problems[code];
             if (!problem) continue;
+            const statementHref = problem.href || problem.pdfHref;
+            if (!statementHref) {
+                $(el).text(`${code} - ${problem.title}`);
+                return;
+            }
             const link = $('<a class="stdlink"></a>');
-            link.attr('href', problem.href);
-            link.text(`${code} - ${problem.title}`)
+            link.attr('href', statementHref);
+            link.text(`${code} - ${problem.title}`);
             $(el).empty().append(link);
         }
     });

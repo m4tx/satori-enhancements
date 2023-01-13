@@ -288,7 +288,8 @@
     }
 
     async function getProblemList(contestID) {
-        return contestProblemList[contestID];
+        // TODO: Fetch problem list
+        return contestProblemList[contestID] ?? {};
     }
 
     retrieveLastContestID();
