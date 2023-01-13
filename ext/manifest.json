@@ -93,7 +93,10 @@
       ]
     },
     {
-      "matches": ["*://satori.tcs.uj.edu.pl/contest/*/problems*"],
+      "matches": [
+        "*://satori.tcs.uj.edu.pl/contest/*/problems",
+        "*://satori.tcs.uj.edu.pl/contest/*/problems?*"
+      ],
       "js": [
         "vendor/browser-polyfill.js",
         "vendor/bower/jquery.min.js",
