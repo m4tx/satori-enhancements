@@ -17,6 +17,7 @@
     let problemStatus = tr.find('td:last').text();
 
     let url = document.location.href;
+    const contestID = getContestID(url);
 
     /**
      * Parse given HTML and return problem status code if it's found.
@@ -84,6 +85,19 @@
         });
     }
 
+    const submitUrlRegex = /submit\?select=(\d+)/;
+
     initializeSyntaxHighlighter();
-    updateProblemList(false);
+    updateProblemList(false).then((submitUrl) => {
+        if (!submitUrl) return;
+        const submitID = submitUrlRegex.exec(submitUrl)[1];
+        const submitButton = $('<a class="button">Submit another</a>')
+            .attr('href', submitUrl);
+        const resultsButton = $('<a class="button">All submissions</a>')
+            .attr('href', `${SATORI_URL_HTTPS}contest/${contestID}/results?results_filter_problem=${submitID}`);
+        $('<div class="button_bar"></div>')
+            .append(submitButton)
+            .append(resultsButton)
+            .insertAfter('#content .results')
+    });
 })();
