@@ -80,7 +80,7 @@
             if (response.type === 'opaqueredirect') {
                 try {
                     window.location = await getLatestSubmit(
-                        `${SATORI_URL_HTTPS}contest/${contestID}/results?results_filter_problem=${problemID}`
+                        `${SATORI_URL_HTTPS}contest/${contestID}/results?results_limit=1&results_filter_problem=${problemID}`
                     );
                 } catch (error) {
                     console.error(error);
