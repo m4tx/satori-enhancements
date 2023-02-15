@@ -24,6 +24,7 @@ have been there since the beginning (but for some reason, they aren't).
   * Search box to filter rows
   * Sticking the table header and two leftmost columns (Rank/Lp and Name) when scrolling so they're always visible
 * Submit:
+  * Allow pasting code instead of selecting local file when submitting
   * Auto-redirect to the latest results page after submitting a solution
 * Results:
   * Auto-refreshing results page and notifying about problem status changes
