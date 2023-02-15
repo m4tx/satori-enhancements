@@ -52,7 +52,7 @@ gulp.task('sass', function () {
 
 gulp.task('jshint', function () {
     return gulp.src(path.join(EXT_DIR, 'js/**/*.js'))
-        .pipe(jshint({esversion: 6}))
+        .pipe(jshint({esversion: 11}))
         .pipe(jshint.reporter('default'));
 });
 

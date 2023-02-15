@@ -5,7 +5,7 @@
     const resultsUrl = `${SATORI_URL_HTTPS}contest/${contestID}/results?results_filter_problem=${problemID}`;
     $('<a class="button">Results</a>')
         .attr('href', resultsUrl)
-        .appendTo('#content > .buttton_bar')
+        .appendTo('#content > .buttton_bar');
 
     function parseResultsPage(html) {
         for (const x of $.parseHTML(html)) {

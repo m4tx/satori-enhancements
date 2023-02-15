@@ -25,7 +25,7 @@
         codeTextarea.attr('disabled', fileSelected);
         filePicker.attr('disabled', textEntered);
         submitButton.attr('disabled', loading || !problemSelect.val() || !(textEntered || fileSelected));
-    }
+    };
 
     problemSelect.on('change', updatePickers);
     filePicker.on('change', updatePickers);

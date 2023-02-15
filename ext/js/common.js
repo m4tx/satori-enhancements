@@ -17,7 +17,7 @@ function getContestAndProblemID(url) {
     return {
         contestID: match[1],
         problemID: match[2],
-    }
+    };
 }
 
 if (typeof module !== 'undefined') {

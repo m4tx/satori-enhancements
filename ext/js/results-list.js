@@ -19,7 +19,7 @@
         }
         $(`<a class="button">Submit another</a>`)
             .attr('href', `${SATORI_URL_HTTPS}contest/${contestID}/submit?select=${problemID}`)
-            .appendTo('#content .button_bar')
+            .appendTo('#content .button_bar');
     }
 
     addCompareSubmitsButton();

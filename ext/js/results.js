@@ -100,6 +100,6 @@
         $('<div class="button_bar"></div>')
             .append(resultsButton)
             .append(submitButton)
-            .insertAfter('#content .results')
+            .insertAfter('#content .results');
     });
 })();
