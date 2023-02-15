@@ -257,16 +257,20 @@
             });
     }
 
-    hideProblemGroups();
-    connectGroupHideLinks();
-    const table = $('table.results');
-    table.each((index, table) => processProblemGroup($(table)));
-
-
     // "Results" constants
     const contestID = getContestID(document.location.href);
     const resultsURL = `${SATORI_URL_HTTPS}contest/${contestID}/results`;
 
+    browser.runtime.sendMessage({
+        action: 'saveContestProblemList',
+        contestID,
+        problems: parseProblemList([$]),
+    });
+
+    hideProblemGroups();
+    connectGroupHideLinks();
+    const table = $('table.results');
+    table.each((index, table) => processProblemGroup($(table)));
 
     // "Results" button
     const submitUrlRegex = /submit\?select=(\d+)/;

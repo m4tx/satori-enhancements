@@ -1,8 +1,10 @@
 const SATORI_URL = 'satori.tcs.uj.edu.pl/';
 const SATORI_URL_HTTP = 'http://' + SATORI_URL;
 const SATORI_URL_HTTPS = 'https://' + SATORI_URL;
-const PROBLEM_URL_REGEX =
+const CONTEST_URL_REGEX =
     /https:\/\/satori\.tcs\.uj\.edu\.pl\/contest\/(\d+)\//;
+const PROBLEM_URL_REGEX =
+    /https:\/\/satori\.tcs\.uj\.edu\.pl\/contest\/(\d+)\/problems\/(\d+)/;
 
 const CHOSEN_LOGO_PRIMARY_KEY = 'chosenLogo_primary';
 const CHOSEN_LOGO_SECONDARY_KEY = 'chosenLogo_secondary';
@@ -42,6 +44,7 @@ if (typeof module !== 'undefined') {
         SATORI_URL,
         SATORI_URL_HTTP,
         SATORI_URL_HTTPS,
+        CONTEST_URL_REGEX,
         PROBLEM_URL_REGEX,
 
         CHOSEN_LOGO_PRIMARY_KEY,

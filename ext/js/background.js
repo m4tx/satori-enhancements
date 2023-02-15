@@ -14,6 +14,8 @@
      */
     let satoriTabs = new Set();
 
+    const contestProblemList = {};
+
     function displayStatusNotification(submitID, problemCode, status) {
         browser.notifications.create({
             type: 'basic',
@@ -230,6 +232,23 @@
         });
     }
 
+    function saveContestProblemList(contestID, problems) {
+        contestProblemList[contestID] = problems;
+    }
+
+    async function getProblemList(contestID) {
+        if (!contestProblemList[contestID]) {
+            try {
+                const response = await fetch(`${SATORI_URL_HTTPS}contest/${contestID}/problems`);
+                if (!response.ok) throw new Error(`HTTP Status ${response.status}`);
+                contestProblemList[contestID] = parseProblemList($.parseHTML(await response.text()));
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        return contestProblemList[contestID] ?? {};
+    }
+
     retrieveLastContestID();
     setUpLastContestRedirect();
     setUpSessionCookies();
@@ -255,6 +274,10 @@
             });
         } else if (request.action === 'injectHighlightJsCss') {
             injectHighlightJsCss(sender.tab);
+        } else if (request.action === 'saveContestProblemList') {
+            saveContestProblemList(request.contestID, request.problems);
+        } else if (request.action === 'getContestProblemList') {
+            return getProblemList(request.contestID);
         }
         return new Promise(resolve => resolve(null));
     });
