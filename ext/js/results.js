@@ -89,7 +89,9 @@
 
     initializeSyntaxHighlighter();
     insertProblemLinks(false).then((submitUrl) => {
-        if (!submitUrl) return;
+        if (!submitUrl) {
+            return;
+        }
         const submitID = submitUrlRegex.exec(submitUrl)[1];
         const resultsButton = $('<a class="button">All submissions</a>')
             .attr('href', `${SATORI_URL_HTTPS}contest/${contestID}/results?results_filter_problem=${submitID}`);

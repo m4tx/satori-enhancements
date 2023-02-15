@@ -174,7 +174,9 @@
             [KEEP_SIGNED_IN_DURATION_KEY]: DEFAULT_SETTINGS[KEEP_SIGNED_IN_DURATION_KEY],
         }).then((response) => {
             const duration = response[KEEP_SIGNED_IN_DURATION_KEY];
-            if (duration === 'none') return null;
+            if (duration === 'none') {
+                return null;
+            }
             return parseInt(duration, 10);
         });
     }
@@ -182,7 +184,9 @@
     function updateCookie(cookie) {
         return getKeepSignedInDuration()
             .then((duration) => {
-                if (duration === null) return;
+                if (duration === null) {
+                    return;
+                }
                 const newCookie = {
                     expirationDate: Math.round(Date.now() / 1000) + duration * 24 * 60 * 60,
                     httpOnly: cookie.httpOnly,
@@ -208,7 +212,9 @@
 
     function updateExistingCookie() {
         return getTokenCookies().then((cookies) => {
-            if (cookies.length === 0) return;
+            if (cookies.length === 0) {
+                return;
+            }
             if (cookies.length > 1) {
                 console.warn('Too many satori_token cookies');
                 return;
@@ -222,7 +228,7 @@
 
     function setUpSessionCookies() {
         updateExistingCookie().catch(console.error);
-        browser.cookies.onChanged.addListener(({ removed, cookie }) => {
+        browser.cookies.onChanged.addListener(({removed, cookie}) => {
             if (
                 !removed &&
                 cookie.domain === satoriDomain &&
@@ -240,7 +246,9 @@
         if (!contestProblemList[contestID]) {
             try {
                 const response = await fetch(`${SATORI_URL_HTTPS}contest/${contestID}/problems`);
-                if (!response.ok) throw new Error(`HTTP Status ${response.status}`);
+                if (!response.ok) {
+                    throw new Error(`HTTP Status ${response.status}`);
+                }
                 contestProblemList[contestID] = parseProblemList($.parseHTML(await response.text()));
             } catch (error) {
                 console.error(error);

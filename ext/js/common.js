@@ -54,8 +54,12 @@ async function insertProblemLinks(isResultList) {
     for (const el of $(`table.results > tbody > tr:not(:first-of-type) > td:nth-child(${column})`)) {
         const code = $(el).text();
         const problem = problems[code];
-        if (!problem) continue;
-        if (problem.submitHref) submitHref = problem.submitHref;
+        if (!problem) {
+            continue;
+        }
+        if (problem.submitHref) {
+            submitHref = problem.submitHref;
+        }
         const statementHref = problem.href || problem.pdfHref;
         if (!statementHref) {
             $(el).text(`${code} - ${problem.title}`);

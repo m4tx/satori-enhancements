@@ -51,28 +51,36 @@
 
     const getLatestSubmit = async (url) => {
         const response = await fetch(url);
-        if (!response.ok) throw new Error(`HTTP Error ${response.status}`);
+        if (!response.ok) {
+            throw new Error(`HTTP Error ${response.status}`);
+        }
         return parseResultListHTML(await response.text());
     };
 
     form.on('submit', async (event) => {
         event.preventDefault();
-        if (loading) return;
+        if (loading) {
+            return;
+        }
         const formData = new FormData();
         const problemID = problemSelect.val();
         formData.set('problem', problemID);
+
         if (filePicker.val() !== '') {
             formData.set('codefile', filePicker[0].files[0]);
         } else if (codeTextarea.val() !== '') {
             const blob = new Blob([codeTextarea.val()], {
-                type: "text/plain",
+                type: 'text/plain',
             });
             formData.set('codefile', blob, 'code.cpp');
-        } else return;
+        } else {
+            return;
+        }
+
         loading = true;
         updatePickers();
         try {
-            const response = await fetch(form.attr('action'), {
+            const response = await fetch(`${SATORI_URL_HTTPS}${form.attr('action')}`, {
                 method: 'POST',
                 body: formData,
                 redirect: 'manual',
@@ -88,9 +96,9 @@
                 }
                 return;
             }
-            alert("Błąd: HTTP Status " + response.status);
+            alert('Error: HTTP Status ' + response.status);
         } catch (error) {
-            alert("Błąd: " + error.message);
+            alert('Error: ' + error.message);
             console.error(error);
         }
         loading = false;
