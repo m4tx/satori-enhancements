@@ -148,6 +148,19 @@
         "vendor/bower/7-three-bounce.css",
         "css/results.css"
       ]
+    },
+    {
+      "matches": ["*://satori.tcs.uj.edu.pl/contest/*/submit*"],
+      "js": [
+        "vendor/browser-polyfill.js",
+        "vendor/bower/jquery.min.js",
+        "js/common.js",
+        "js/submit.js"
+      ],
+      "run_at": "document_end",
+      "css": [
+        "css/submit.css"
+      ]
     }
   ]
 }
