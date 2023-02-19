@@ -48,7 +48,7 @@ See `gulpfile.js` for more gulp tasks.
 
 ## Download
 * [Chrome Web Store](https://chrome.google.com/webstore/detail/satori-enhancements/oghiinfmhnkmfecckbpcoieaieobblog)
-* [AMO (Firefox Add-ons)](https://addons.mozilla.org/firefox/addon/satori-enhancements/)
+* ~~[AMO (Firefox Add-ons)](https://addons.mozilla.org/firefox/addon/satori-enhancements/)~~ removed - please download the latest xpi file from the [Releases page](https://github.com/m4tx/satori-enhancements/releases) instead
 
 ## Attribution
 * `ext/images_src/alttcs.psd` (derived images: `ext/images_src/alttcs.xcf`, `ext/images/alttcslogo.png`) was originally created by Adam Pardyl
