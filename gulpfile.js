@@ -104,9 +104,9 @@ gulp.task('compress', gulp.series('dist', () => gulp
     .pipe(gulp.dest('bin'))
 ));
 
-gulp.task('watch', gulp.series('build', () => {
-    gulp.watch(path.join(EXT_DIR, 'scss/**/*.scss'), ['sass']);
-    gulp.watch(path.join(EXT_DIR, 'js/**/*.js'), ['jshint']);
-}));
+gulp.task('watch', gulp.series('build', gulp.parallel(
+    () => gulp.watch(path.join(EXT_DIR, 'scss/**/*.scss'), gulp.series('sass')),
+    () => gulp.watch(path.join(EXT_DIR, 'js/**/*.js'), gulp.series('jshint')),
+)));
 
 gulp.task('default', gulp.series('dist'));
