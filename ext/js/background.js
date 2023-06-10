@@ -266,8 +266,6 @@
             enablePageAction(sender.tab);
         } else if (request.action === 'saveLastContestID') {
             saveLastContestID(getContestID(sender.url));
-        } else if (request.action === 'shouldRedirectToSubmit') {
-            return shouldRedirectToSubmit(getContestID(sender.url));
         } else if (request.action === 'displayStatusNotification') {
             displayStatusNotification(request.submitID, request.problemCode,
                 request.problemStatus);
