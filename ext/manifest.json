@@ -68,6 +68,15 @@
       "css": ["css/general.css"]
     },
     {
+      "matches": ["*://satori.tcs.uj.edu.pl/contest/select"],
+      "js": [
+        "vendor/browser-polyfill.js",
+        "vendor/bower/jquery.min.js",
+        "js/contest-select.js"
+      ],
+      "run_at": "document_end"
+    },
+    {
       "matches": ["*://satori.tcs.uj.edu.pl/contest/*/*"],
       "exclude_matches": ["*://satori.tcs.uj.edu.pl/contest/apply/*"],
       "js": [
