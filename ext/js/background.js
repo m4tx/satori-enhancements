@@ -257,6 +257,22 @@
         return contestProblemList[contestID] ?? {};
     }
 
+    /**
+     * Save joined contest list in Storage
+     * @param {array} contestList contest list
+     */
+    function saveJoinedContestList(contestList) {
+        storage.set({ contestList });
+    }
+
+    /**
+     * Save joined contest list in Storage
+     * @return {array} contest list
+     */
+    async function getJoinedContestList() {
+        return (await storage.get('contestList')).contestList ?? [];
+    }
+
     retrieveLastContestID();
     setUpLastContestRedirect();
     setUpSessionCookies();
@@ -284,6 +300,10 @@
             saveContestProblemList(request.contestID, request.problems);
         } else if (request.action === 'getContestProblemList') {
             return getProblemList(request.contestID);
+        } else if (request.action === 'setJoinedContestList') {
+            saveJoinedContestList(request.contestList);
+        } else if (request.action === 'getJoinedContestList') {
+            return getJoinedContestList();
         }
         return new Promise(resolve => resolve(null));
     });
