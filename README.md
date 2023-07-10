@@ -71,6 +71,7 @@ See `gulpfile.js` for more gulp tasks.
   <tbody>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/m4tx"><img src="https://avatars.githubusercontent.com/u/3128220?v=4?s=100" width="100px;" alt="Mateusz Maćkowski"/><br /><sub><b>Mateusz Maćkowski</b></sub></a><br /><a href="https://github.com/m4tx/satori-enhancements/commits?author=m4tx" title="Code">💻</a> <a href="#infra-m4tx" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#maintenance-m4tx" title="Maintenance">🚧</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/v3ctor"><img src="https://avatars.githubusercontent.com/u/8948436?v=4?s=100" width="100px;" alt="v3tr"/><br /><sub><b>v3tr</b></sub></a><br /><a href="https://github.com/m4tx/satori-enhancements/commits?author=v3ctor" title="Code">💻</a></td>
     </tr>
   </tbody>
   <tfoot>
