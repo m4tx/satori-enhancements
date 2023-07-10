@@ -1,76 +1,99 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Satori Enhancements Options</title>
-    <link rel="stylesheet" href="css/options.css"/>
-    <link rel="stylesheet" href="css/results.css"/>
-</head>
-<body>
-<h2>Primary logo</h2>
-<form class="image-chooser">
-    <div class="image-chooser-tile">
-        <label>
-            <div class="image-chooser-content">
-                <img src="images/satori_banner.png"/>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Satori Enhancements Options</title>
+        <link rel="stylesheet" href="css/options.css" />
+        <link rel="stylesheet" href="css/results.css" />
+    </head>
+    <body>
+        <h2>Primary logo</h2>
+        <form class="image-chooser">
+            <div class="image-chooser-tile">
+                <label>
+                    <div class="image-chooser-content">
+                        <img src="images/satori_banner.png" />
+                    </div>
+                    <input
+                        type="radio"
+                        name="primary-logo-chooser"
+                        value="satoriPremium"
+                    />
+                </label>
             </div>
-            <input type="radio" name="primary-logo-chooser"
-                   value="satoriPremium">
-        </label>
-    </div>
-    <div class="image-chooser-tile">
-        <label>
-            <div class="image-chooser-content">
-                <img src="images/tcslogo.svg"/>
+            <div class="image-chooser-tile">
+                <label>
+                    <div class="image-chooser-content">
+                        <img src="images/tcslogo.svg" />
+                    </div>
+                    <input
+                        type="radio"
+                        name="primary-logo-chooser"
+                        value="tcs"
+                    />
+                </label>
             </div>
-            <input type="radio" name="primary-logo-chooser" value="tcs">
-        </label>
-    </div>
-    <div class="image-chooser-tile">
-        <label>
-            <div class="image-chooser-content">
-                <img src="images/alttcslogo.png"/>
+            <div class="image-chooser-tile">
+                <label>
+                    <div class="image-chooser-content">
+                        <img src="images/alttcslogo.png" />
+                    </div>
+                    <input
+                        type="radio"
+                        name="primary-logo-chooser"
+                        value="alternative"
+                    />
+                </label>
             </div>
-            <input type="radio" name="primary-logo-chooser" value="alternative">
-        </label>
-    </div>
-</form>
+        </form>
 
-<h2>Secondary logo</h2>
-<form class="image-chooser">
-    <div class="image-chooser-tile">
-        <label>
-            <div class="image-chooser-content">None</div>
-            <input type="radio" name="secondary-logo-chooser" value="none">
-        </label>
-    </div>
-    <div class="image-chooser-tile">
-        <label>
-            <div class="image-chooser-content">
-                <img src="images/tcslogo.svg"/>
+        <h2>Secondary logo</h2>
+        <form class="image-chooser">
+            <div class="image-chooser-tile">
+                <label>
+                    <div class="image-chooser-content">None</div>
+                    <input
+                        type="radio"
+                        name="secondary-logo-chooser"
+                        value="none"
+                    />
+                </label>
             </div>
-            <input type="radio" name="secondary-logo-chooser" value="tcs">
-        </label>
-    </div>
-    <div class="image-chooser-tile">
-        <label>
-            <div class="image-chooser-content">
-                <img src="images/alttcslogo.png"/>
+            <div class="image-chooser-tile">
+                <label>
+                    <div class="image-chooser-content">
+                        <img src="images/tcslogo.svg" />
+                    </div>
+                    <input
+                        type="radio"
+                        name="secondary-logo-chooser"
+                        value="tcs"
+                    />
+                </label>
             </div>
-            <input type="radio" name="secondary-logo-chooser"
-                   value="alternative">
-        </label>
-    </div>
-</form>
+            <div class="image-chooser-tile">
+                <label>
+                    <div class="image-chooser-content">
+                        <img src="images/alttcslogo.png" />
+                    </div>
+                    <input
+                        type="radio"
+                        name="secondary-logo-chooser"
+                        value="alternative"
+                    />
+                </label>
+            </div>
+        </form>
 
-<h2>Syntax highlighter style</h2>
-<form>
-    <select id="hjsstyle">
-        <option value="none">None (disable highlighter)</option>
-    </select>
-</form>
-<div class="mainsphinx">
-    <pre id="syntax-highlighter-example">#include &lt;bits/stdc++.h&gt;
+        <h2>Syntax highlighter style</h2>
+        <form>
+            <select id="hjsstyle">
+                <option value="none">None (disable highlighter)</option>
+            </select>
+        </form>
+        <div class="mainsphinx">
+            <pre id="syntax-highlighter-example">
+#include &lt;bits/stdc++.h&gt;
 using namespace std;
 
 int main(int argc, char **argv) {
@@ -81,29 +104,30 @@ int main(int argc, char **argv) {
     std::cout &lt;&lt; "Hello world!" &lt;&lt; (4e2 + 0xFF) * -1l &lt;&lt; '\n';
 
     return 0b1110 /* 14 */;
-}</pre>
-</div>
+}</pre
+            >
+        </div>
 
-<h2>Keep signed in</h2>
-<form>
-    <label for="keepSignedInDuration">Sign in duration</label>
-    <select id="keepSignedInDuration">
-        <option value="none">Disable</option>
-        <option value="1">1 day</option>
-        <option value="3">3 days</option>
-        <option value="7">7 days</option>
-        <option value="30">30 days</option>
-        <option value="60">60 days</option>
-        <option value="180">180 days</option>
-        <option value="365">365 days</option>
-    </select>
-</form>
+        <h2>Keep signed in</h2>
+        <form>
+            <label for="keepSignedInDuration">Sign in duration</label>
+            <select id="keepSignedInDuration">
+                <option value="none">Disable</option>
+                <option value="1">1 day</option>
+                <option value="3">3 days</option>
+                <option value="7">7 days</option>
+                <option value="30">30 days</option>
+                <option value="60">60 days</option>
+                <option value="180">180 days</option>
+                <option value="365">365 days</option>
+            </select>
+        </form>
 
-<script src="vendor/bower/jquery.min.js"></script>
-<script src="vendor/browser-polyfill.js"></script>
-<script src="vendor/bower/highlight.pack.min.js"></script>
-<script src="vendor/bower/highlightjs-line-numbers.min.js"></script>
-<script src="js/config.js"></script>
-<script src="js/options.js"></script>
-</body>
+        <script src="vendor/bower/jquery.min.js"></script>
+        <script src="vendor/browser-polyfill.js"></script>
+        <script src="vendor/bower/highlight.pack.min.js"></script>
+        <script src="vendor/bower/highlightjs-line-numbers.min.js"></script>
+        <script src="js/config.js"></script>
+        <script src="js/options.js"></script>
+    </body>
 </html>

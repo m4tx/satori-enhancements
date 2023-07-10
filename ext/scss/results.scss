@@ -1,22 +1,22 @@
 div.sk-three-bounce.satoriEnhancementsSpinner {
-  margin: 0 0 0 .2em;
-  display: inline-block;
-  width: 40px;
+    margin: 0 0 0 0.2em;
+    display: inline-block;
+    width: 40px;
 
-  & > div {
-    width: 8px;
-    height: 8px;
-    background-color: rgba(0, 0, 0, .75);
-  }
+    & > div {
+        width: 8px;
+        height: 8px;
+        background-color: rgba(0, 0, 0, 0.75);
+    }
 }
 
 /* Block of numbers */
 .hljs-ln td.hljs-ln-numbers {
-  -webkit-touch-callout: none;
-  -moz-user-select: none;
-  user-select: none;
+    -webkit-touch-callout: none;
+    -moz-user-select: none;
+    user-select: none;
 
-  vertical-align: top;
-  padding-right: 0.75em;
-  opacity: 0.5;
+    vertical-align: top;
+    padding-right: 0.75em;
+    opacity: 0.5;
 }

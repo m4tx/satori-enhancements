@@ -12,14 +12,15 @@
 
     function saveLogo(chooserName) {
         storage.set({
-            [`chosenLogo_${chooserName}`]:
-                logoChoosers[chooserName].filter(':checked').val()
+            [`chosenLogo_${chooserName}`]: logoChoosers[chooserName]
+                .filter(':checked')
+                .val(),
         });
     }
 
     function restoreOptions() {
-        storage.get(DEFAULT_SETTINGS).then(items => {
-            const {highlightJsStyle} = items;
+        storage.get(DEFAULT_SETTINGS).then((items) => {
+            const { highlightJsStyle } = items;
             for (let chooserName in logoChoosers) {
                 let varName = `chosenLogo_${chooserName}`;
                 logoChoosers[chooserName]
@@ -44,16 +45,15 @@
 
     function saveStyle() {
         storage.set({
-            highlightJsStyle: styleSelect.val()
+            highlightJsStyle: styleSelect.val(),
         });
     }
 
     function saveKeepSignedInDuration() {
         storage.set({
-            [KEEP_SIGNED_IN_DURATION_KEY]: signedInDurationSelect.val()
+            [KEEP_SIGNED_IN_DURATION_KEY]: signedInDurationSelect.val(),
         });
     }
-
 
     function refreshHighlighterStylesheet() {
         const newStyle = styleSelect.val();
@@ -62,9 +62,9 @@
         if (newStyle !== 'none') {
             newHighlighterStylesheet = $(
                 `<link rel="stylesheet"
-                       href="vendor/bower/hjsstyles/${newStyle}.css"/>`);
+                       href="vendor/bower/hjsstyles/${newStyle}.css"/>`,
+            );
             $('head').append(newHighlighterStylesheet);
-
         }
 
         setTimeout(() => {

@@ -1,35 +1,35 @@
 h2:not(:first-child) {
-  margin-top: 35px;
+    margin-top: 35px;
 }
 
 .image-chooser {
-  & > .image-chooser-tile {
-    display: inline-block;
-    text-align: center;
-    margin-right: 20px;
+    & > .image-chooser-tile {
+        display: inline-block;
+        text-align: center;
+        margin-right: 20px;
 
-    .image-chooser-content {
-      width: 96px;
-      height: 96px;
+        .image-chooser-content {
+            width: 96px;
+            height: 96px;
 
-      display: flex;
-      justify-content: center;
-      align-items: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image-chooser-content img {
+            max-width: 96px;
+            height: auto;
+            margin: auto;
+        }
     }
-
-    .image-chooser-content img {
-      max-width: 96px;
-      height: auto;
-      margin: auto;
-    }
-  }
 }
 
 select {
-  width: 100%;
+    width: 100%;
 }
 
 .mainsphinx pre {
-  background-color: #efc;
-  padding: 0.5em;
+    background-color: #efc;
+    padding: 0.5em;
 }

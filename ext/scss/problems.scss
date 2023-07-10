@@ -1,41 +1,41 @@
 div#content {
-  // Avoid adding a vertical scrollbar after using visibility: collapse
-  overflow-y: hidden;
+    // Avoid adding a vertical scrollbar after using visibility: collapse
+    overflow-y: hidden;
 }
 
 table.results {
-  td.satoriEnhancementsProblemHide {
-    text-align: center;
+    td.satoriEnhancementsProblemHide {
+        text-align: center;
 
-    & > a:hover {
-      cursor: pointer;
+        & > a:hover {
+            cursor: pointer;
+        }
     }
-  }
 
-  .satori-enhancements-collapsed {
-    visibility: collapse;
-  }
+    .satori-enhancements-collapsed {
+        visibility: collapse;
+    }
 
-  tr.satoriEnhancementsEven {
-    background-color: #F3F3FC !important;
-  }
-  tr.satoriEnhancementsOdd {
-    background-color: #E3E3FC !important;
-  }
+    tr.satoriEnhancementsEven {
+        background-color: #f3f3fc !important;
+    }
+    tr.satoriEnhancementsOdd {
+        background-color: #e3e3fc !important;
+    }
 
-  td.satori-enhancements-status-ok {
-    background-color: #D9F7C2;
-  }
+    td.satori-enhancements-status-ok {
+        background-color: #d9f7c2;
+    }
 
-  td.satori-enhancements-status-que {
-    background-color: #FFF2C8;
-  }
+    td.satori-enhancements-status-que {
+        background-color: #fff2c8;
+    }
 
-  td.satori-enhancements-status-int {
-    background-color: #94F7FC;
-  }
+    td.satori-enhancements-status-int {
+        background-color: #94f7fc;
+    }
 
-  td.satori-enhancements-status-err {
-    background-color: #F8C3D2;
-  }
+    td.satori-enhancements-status-err {
+        background-color: #f8c3d2;
+    }
 }

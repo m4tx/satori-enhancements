@@ -6,7 +6,7 @@
     $('#content table tr:nth-child(1) th').text('Problem:');
     $('#content table tr:nth-child(2) th').text('File:');
     $('#content table').append(
-        '<tr><th>Code:</th><td colspan="2"><textarea id="code-textarea" tabindex="3"></textarea><td></tr>'
+        '<tr><th>Code:</th><td colspan="2"><textarea id="code-textarea" tabindex="3"></textarea><td></tr>',
     );
 
     const problemSelect = $('#id_problem');
@@ -24,7 +24,10 @@
         const textEntered = codeTextarea.val() !== '';
         codeTextarea.attr('disabled', fileSelected);
         filePicker.attr('disabled', textEntered);
-        submitButton.attr('disabled', loading || !problemSelect.val() || !(textEntered || fileSelected));
+        submitButton.attr(
+            'disabled',
+            loading || !problemSelect.val() || !(textEntered || fileSelected),
+        );
     };
 
     problemSelect.on('change', updatePickers);
@@ -40,8 +43,10 @@
      */
     function parseResultListHTML(html) {
         for (let x of $.parseHTML(html)) {
-            let resultsLink = $(x).find('div#content table.results tbody > ' +
-                'tr:nth-child(2) > td:first > a');
+            let resultsLink = $(x).find(
+                'div#content table.results tbody > ' +
+                    'tr:nth-child(2) > td:first > a',
+            );
             if (resultsLink.length) {
                 return resultsLink.attr('href');
             }
@@ -80,15 +85,18 @@
         loading = true;
         updatePickers();
         try {
-            const response = await fetch(`${SATORI_URL_HTTPS}${form.attr('action')}`, {
-                method: 'POST',
-                body: formData,
-                redirect: 'manual',
-            });
+            const response = await fetch(
+                `${SATORI_URL_HTTPS}${form.attr('action')}`,
+                {
+                    method: 'POST',
+                    body: formData,
+                    redirect: 'manual',
+                },
+            );
             if (response.type === 'opaqueredirect') {
                 try {
                     window.location = await getLatestSubmit(
-                        `${SATORI_URL_HTTPS}contest/${contestID}/results?results_limit=1&results_filter_problem=${problemID}`
+                        `${SATORI_URL_HTTPS}contest/${contestID}/results?results_limit=1&results_filter_problem=${problemID}`,
                     );
                 } catch (error) {
                     console.error(error);

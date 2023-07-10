@@ -1,57 +1,63 @@
 {
-  "name": "satori-enhancements",
-  "version": "1.4",
-  "description": "WebExtension that adds a few useful enhancements to Satori Online Judge website.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "node -e \"try { require('fs').symlinkSync(require('path').resolve('node_modules/@bower_components'), 'bower_components', 'junction') } catch (e) { }\" && node node_modules/gulp/bin/gulp.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/m4tx/satori-enhancements.git"
-  },
-  "keywords": [
-    "WebExtension",
-    "Chrome",
-    "Satori",
-    "online",
-    "judge",
-    "programming",
-    "Jagiellonian",
-    "University"
-  ],
-  "author": "Mateusz \"m4tx\" Maćkowski",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/m4tx/satori-enhancements/issues"
-  },
-  "homepage": "https://github.com/m4tx/satori-enhancements#readme",
-  "devDependencies": {
-    "bower": "^1.8.4",
-    "del": "^6.0.0",
-    "gulp": "^4.0.2",
-    "gulp-jshint": "^2.1.0",
-    "gulp-prefix-css": "0.0.4",
-    "gulp-sass": "^5.0.0",
-    "gulp-zip": "^5.0.2",
-    "jshint": "^2.9.6"
-  },
-  "dependencies": {
-    "@bower_components/SpinKit": "tobiasahlin/SpinKit#^1.2.5",
-    "@bower_components/datatables": "DataTables/DataTables#>=1.10.15",
-    "@bower_components/datatables.net": "DataTables/Dist-DataTables#>=1.10.9",
-    "@bower_components/datatables.net-dt": "DataTables/Dist-DataTables-DataTables#^3.2.2",
-    "@bower_components/datatables.net-fixedcolumns": "DataTables/Dist-DataTables-FixedColumns#>=3.1.0",
-    "@bower_components/datatables.net-fixedcolumns-dt": "DataTables/Dist-DataTables-FixedColumns-DataTables#^3.2.3",
-    "@bower_components/datatables.net-plugins": "DataTables/Plugins#^1.10.16",
-    "@bower_components/highlightjs": "components/highlightjs#^9.12.0",
-    "datatables.net-plugins": "git+https://github.com/DataTables/Plugins#284ebf1251809acdcd86cbcc533596811a6f0eeb",
-    "highlightjs-line-numbers.js": "^2.5.0",
-    "jquery": "^3.6.3",
-    "sass": "^1.42.1"
-  },
-  "engines": {
-    "yarn": ">= 1.0.0"
-  }
+    "name": "satori-enhancements",
+    "version": "1.4",
+    "description": "WebExtension that adds a few useful enhancements to Satori Online Judge website.",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "postinstall": "node -e \"try { require('fs').symlinkSync(require('path').resolve('node_modules/@bower_components'), 'bower_components', 'junction') } catch (e) { }\" && node node_modules/gulp/bin/gulp.js",
+        "format": "prettier --write .",
+        "format-check": "prettier --check .",
+        "eslint": "eslint . --fix",
+        "eslint-check": "eslint ."
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/m4tx/satori-enhancements.git"
+    },
+    "keywords": [
+        "WebExtension",
+        "Chrome",
+        "Satori",
+        "online",
+        "judge",
+        "programming",
+        "Jagiellonian",
+        "University"
+    ],
+    "author": "Mateusz \"m4tx\" Maćkowski",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/m4tx/satori-enhancements/issues"
+    },
+    "homepage": "https://github.com/m4tx/satori-enhancements#readme",
+    "devDependencies": {
+        "bower": "^1.8.4",
+        "del": "^6.0.0",
+        "eslint": "^8.44.0",
+        "gulp": "^4.0.2",
+        "gulp-jshint": "^2.1.0",
+        "gulp-prefix-css": "0.0.4",
+        "gulp-sass": "^5.0.0",
+        "gulp-zip": "^5.0.2",
+        "jshint": "^2.9.6",
+        "prettier": "^3.0.0"
+    },
+    "dependencies": {
+        "@bower_components/SpinKit": "tobiasahlin/SpinKit#^1.2.5",
+        "@bower_components/datatables": "DataTables/DataTables#>=1.10.15",
+        "@bower_components/datatables.net": "DataTables/Dist-DataTables#>=1.10.9",
+        "@bower_components/datatables.net-dt": "DataTables/Dist-DataTables-DataTables#^3.2.2",
+        "@bower_components/datatables.net-fixedcolumns": "DataTables/Dist-DataTables-FixedColumns#>=3.1.0",
+        "@bower_components/datatables.net-fixedcolumns-dt": "DataTables/Dist-DataTables-FixedColumns-DataTables#^3.2.3",
+        "@bower_components/datatables.net-plugins": "DataTables/Plugins#^1.10.16",
+        "@bower_components/highlightjs": "components/highlightjs#^9.12.0",
+        "datatables.net-plugins": "git+https://github.com/DataTables/Plugins#284ebf1251809acdcd86cbcc533596811a6f0eeb",
+        "highlightjs-line-numbers.js": "^2.5.0",
+        "jquery": "^3.6.3",
+        "sass": "^1.42.1"
+    },
+    "engines": {
+        "yarn": ">= 1.0.0"
+    }
 }

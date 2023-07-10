@@ -1,26 +1,26 @@
 #contest-select-dialog {
-  z-index: 100;
-  top: 32px;
-  left: auto;
-  right: 2em;
-  border: 1px dotted #A1A39D;
-  box-shadow: 0 2px 3px 0 #0001;
-  width: 200px;
-  padding: 0;
+    z-index: 100;
+    top: 32px;
+    left: auto;
+    right: 2em;
+    border: 1px dotted #a1a39d;
+    box-shadow: 0 2px 3px 0 #0001;
+    width: 200px;
+    padding: 0;
 
-  tr {
-    text-align: left;
-  }
+    tr {
+        text-align: left;
+    }
 
-  td {
-    padding: 1px 2px;
-  }
+    td {
+        padding: 1px 2px;
+    }
 
-  .stdlink {
-    color: #1B1972 !important;
-  }
+    .stdlink {
+        color: #1b1972 !important;
+    }
 
-  h3 {
-    margin: 8px 0;
-  }
+    h3 {
+        margin: 8px 0;
+    }
 }

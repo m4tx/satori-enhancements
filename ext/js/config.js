@@ -15,7 +15,7 @@ const DEFAULT_SETTINGS = {
     [CHOSEN_LOGO_PRIMARY_KEY]: 'satoriPremium',
     [CHOSEN_LOGO_SECONDARY_KEY]: 'tcs',
     [HIGHLIGHT_JS_STYLE_KEY]: 'atom-one-light',
-    [KEEP_SIGNED_IN_DURATION_KEY]: 'none'
+    [KEEP_SIGNED_IN_DURATION_KEY]: 'none',
 };
 
 const HIGHLIGHT_JS_STYLES = [
@@ -36,7 +36,7 @@ const HIGHLIGHT_JS_STYLES = [
     'tomorrow',
     'vs',
     'vs2015',
-    'zenburn'
+    'zenburn',
 ];
 
 if (typeof module !== 'undefined') {

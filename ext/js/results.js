@@ -5,10 +5,10 @@
     const TABLE = $('table.results');
     const THROBBER = $(
         '<div class="sk-three-bounce satoriEnhancementsSpinner">' +
-        '<div class="sk-child sk-bounce1"></div>' +
-        '<div class="sk-child sk-bounce2"></div>' +
-        '<div class="sk-child sk-bounce3"></div>' +
-        '</div>'
+            '<div class="sk-child sk-bounce1"></div>' +
+            '<div class="sk-child sk-bounce2"></div>' +
+            '<div class="sk-child sk-bounce3"></div>' +
+            '</div>',
     );
 
     let tr = TABLE.find('tbody > tr:last');
@@ -49,7 +49,7 @@
                         action: 'displayStatusNotification',
                         submitID: submitID,
                         problemCode: problemCode,
-                        problemStatus: status
+                        problemStatus: status,
                     });
                     location.reload();
                 } else {
@@ -58,7 +58,7 @@
             },
             error: function () {
                 setTimeout(checkStatus, REFRESH_INTERVAL);
-            }
+            },
         });
     }
 
@@ -79,7 +79,7 @@
         }
 
         $('pre.literal-block').each(function (i, block) {
-            browser.runtime.sendMessage({action: 'injectHighlightJsCss'});
+            browser.runtime.sendMessage({ action: 'injectHighlightJsCss' });
             hljs.highlightBlock(block);
             hljs.lineNumbersBlock(block);
         });
@@ -93,10 +93,14 @@
             return;
         }
         const submitID = submitUrlRegex.exec(submitUrl)[1];
-        const resultsButton = $('<a class="button">All submissions</a>')
-            .attr('href', `${SATORI_URL_HTTPS}contest/${contestID}/results?results_filter_problem=${submitID}`);
-        const submitButton = $('<a class="button">Submit another</a>')
-            .attr('href', submitUrl);
+        const resultsButton = $('<a class="button">All submissions</a>').attr(
+            'href',
+            `${SATORI_URL_HTTPS}contest/${contestID}/results?results_filter_problem=${submitID}`,
+        );
+        const submitButton = $('<a class="button">Submit another</a>').attr(
+            'href',
+            submitUrl,
+        );
         $('<div class="button_bar"></div>')
             .append(resultsButton)
             .append(submitButton)

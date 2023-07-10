@@ -33,16 +33,18 @@
 
                 // Create HTML
                 this.hiddenProblemsNumEl = $('<span/>');
-                this.showLink = $('<a class="stdlink"/>')
-                    .click(this._toggleProblemsHidden.bind(this));
+                this.showLink = $('<a class="stdlink"/>').click(
+                    this._toggleProblemsHidden.bind(this),
+                );
                 this.textSpan = $('<span/>');
-                this.td = $('<td colspan="7" ' +
-                    'class="satoriEnhancementsProblemHide"/>')
+                this.td = $(
+                    '<td colspan="7" ' +
+                        'class="satoriEnhancementsProblemHide"/>',
+                )
                     .append(this.hiddenProblemsNumEl)
                     .append(this.textSpan)
                     .append(this.showLink);
-                this.tr = $('<tr/>')
-                    .append(this.td);
+                this.tr = $('<tr/>').append(this.td);
 
                 // Update text contents
                 this.updateHiddenProblemsNum();
@@ -83,9 +85,11 @@
              */
             _updateTexts() {
                 this.textSpan.text(
-                    this._problemsHidden ? " problems hidden, " : " problems ");
+                    this._problemsHidden ? ' problems hidden, ' : ' problems ',
+                );
                 this.showLink.text(
-                    this._problemsHidden ? "unhide" : "can be hidden");
+                    this._problemsHidden ? 'unhide' : 'can be hidden',
+                );
             }
 
             /**
@@ -128,18 +132,20 @@
             if (hide && hiddenProblemsController.problemsHidden) {
                 setTrVisibility(tr, false);
             }
-            tr.find('td > a.satori_enhancements_hide_btn')
-                .text(hide ? "Show" : "Hide");
+            tr.find('td > a.satori_enhancements_hide_btn').text(
+                hide ? 'Show' : 'Hide',
+            );
 
-            hiddenProblemsController
-                .updateHiddenProblemsNum(hiddenProblemTrs.length);
+            hiddenProblemsController.updateHiddenProblemsNum(
+                hiddenProblemTrs.length,
+            );
 
             if (!initial) {
                 browser.runtime.sendMessage({
                     action: 'modifyContestItemList',
                     listName: 'hiddenProblems',
                     value: tr.find('td').first().text(),
-                    add: hide
+                    add: hide,
                 });
             }
         }
@@ -151,7 +157,10 @@
          */
         function toggleProblemsHidden() {
             for (let tr of hiddenProblemTrs) {
-                setTrVisibility($(tr), !hiddenProblemsController.problemsHidden);
+                setTrVisibility(
+                    $(tr),
+                    !hiddenProblemsController.problemsHidden,
+                );
             }
             updateEvenTrs();
         }
@@ -175,39 +184,43 @@
 
         problemTable.find('tbody > tr:first').find('th').last().before('<th/>');
 
-        browser.runtime.sendMessage({
-            action: 'getContestItemList',
-            listName: 'hiddenProblems'
-        }).then(function (response) {
-            hiddenProblemsController =
-                new HiddenProblemsController(toggleProblemsHidden);
+        browser.runtime
+            .sendMessage({
+                action: 'getContestItemList',
+                listName: 'hiddenProblems',
+            })
+            .then(function (response) {
+                hiddenProblemsController = new HiddenProblemsController(
+                    toggleProblemsHidden,
+                );
 
-            // Add "Hide" button to each table row
-            problemTable
-                .find('tbody > tr > td:nth-child(1)')
-                .each(function () {
-                    if (response.indexOf($(this).text()) !== -1) {
-                        hiddenProblemTrs.push($(this).parent().get(0));
-                    }
+                // Add "Hide" button to each table row
+                problemTable
+                    .find('tbody > tr > td:nth-child(1)')
+                    .each(function () {
+                        if (response.indexOf($(this).text()) !== -1) {
+                            hiddenProblemTrs.push($(this).parent().get(0));
+                        }
 
-                    let btn = $(
-                        '<a class="button button_small ' +
-                        'satori_enhancements_hide_btn"/>');
-                    btn.click(() => {
-                        toggleProblemHidden($(this).parent());
-                        updateEvenTrs();
+                        let btn = $(
+                            '<a class="button button_small ' +
+                                'satori_enhancements_hide_btn"/>',
+                        );
+                        btn.click(() => {
+                            toggleProblemHidden($(this).parent());
+                            updateEvenTrs();
+                        });
+                        let td = $('<td class="centered small"/>').append(btn);
+
+                        $(this).parent().find('td:last').before(td);
+                        toggleProblemHidden($(this).parent(), true);
                     });
-                    let td = $('<td class="centered small"/>').append(btn);
 
-                    $(this).parent().find('td:last').before(td);
-                    toggleProblemHidden($(this).parent(), true);
-                });
-
-            problemTable
-                .find('tbody > tr:nth-child(1)')
-                .after(hiddenProblemsController.element);
-            updateEvenTrs();
-        });
+                problemTable
+                    .find('tbody > tr:nth-child(1)')
+                    .after(hiddenProblemsController.element);
+                updateEvenTrs();
+            });
     }
 
     /**
@@ -217,14 +230,18 @@
      * Should be called once, after loading the page.
      */
     function hideProblemGroups() {
-        browser.runtime.sendMessage({
-            action: 'getContestItemList',
-            listName: 'hiddenGroups'
-        }).then(response => {
-            for (let id of response) {
-                $('#' + id).removeClass('unhidden').addClass('hidden');
-            }
-        });
+        browser.runtime
+            .sendMessage({
+                action: 'getContestItemList',
+                listName: 'hiddenGroups',
+            })
+            .then((response) => {
+                for (let id of response) {
+                    $('#' + id)
+                        .removeClass('unhidden')
+                        .addClass('hidden');
+                }
+            });
     }
 
     /**
@@ -239,7 +256,7 @@
             action: 'modifyContestItemList',
             listName: 'hiddenGroups',
             value: id,
-            add: hidden
+            add: hidden,
         });
     }
 
@@ -248,13 +265,17 @@
      * store which groups have been hidden.
      */
     function connectGroupHideLinks() {
-        $('div#content > form > h4 > a[href^="javascript:unhide"]')
-            .click(function () {
+        $('div#content > form > h4 > a[href^="javascript:unhide"]').click(
+            function () {
                 let href = $(this).attr('href');
                 toggleProblemGroup(
-                    href.substring(href.indexOf("'") + 1, href.lastIndexOf("'"))
+                    href.substring(
+                        href.indexOf("'") + 1,
+                        href.lastIndexOf("'"),
+                    ),
                 );
-            });
+            },
+        );
     }
 
     // "Results" constants
@@ -276,39 +297,36 @@
     const submitUrlRegex = /submit\?select=(\d+)/;
     const pdfUrlRegex = /view\/ProblemMapping\/(\d+)\//;
 
-    table
-        .find('tbody > tr > td:nth-child(1)')
-        .each(function () {
-            // Get the elements needed
-            const tr = $(this).parent();
-            const submitUrl = $('td:last-child a', tr).attr('href');
-            const pdfUrl = $('td:nth-child(3) a', tr).attr('href');
+    table.find('tbody > tr > td:nth-child(1)').each(function () {
+        // Get the elements needed
+        const tr = $(this).parent();
+        const submitUrl = $('td:last-child a', tr).attr('href');
+        const pdfUrl = $('td:nth-child(3) a', tr).attr('href');
 
-            const newTd = $('<td class="centered small"/>');
+        const newTd = $('<td class="centered small"/>');
 
-            // Try to find problem ID in submit URL or PDF URL
-            let problemId;
-            if (submitUrl !== undefined) {
-                problemId = submitUrl.match(submitUrlRegex)[1];
-            } else if (pdfUrl !== undefined) {
-                problemId = pdfUrl.match(pdfUrlRegex)[1];
-            }
-            if (problemId != null) {
-                // Create "Results" button
-                const resultsUrl =
-                    `${resultsURL}?results_filter_problem=${problemId}`;
+        // Try to find problem ID in submit URL or PDF URL
+        let problemId;
+        if (submitUrl !== undefined) {
+            problemId = submitUrl.match(submitUrlRegex)[1];
+        } else if (pdfUrl !== undefined) {
+            problemId = pdfUrl.match(pdfUrlRegex)[1];
+        }
+        if (problemId != null) {
+            // Create "Results" button
+            const resultsUrl = `${resultsURL}?results_filter_problem=${problemId}`;
 
-                const btn = $(
-                    `<a href="${resultsUrl}" class="button button_small">
+            const btn = $(
+                `<a href="${resultsUrl}" class="button button_small">
                     Results
-                 </a>`);
-                newTd.append(btn);
-            }
+                 </a>`,
+            );
+            newTd.append(btn);
+        }
 
-            tr.find('td:last').before(newTd);
-        });
+        tr.find('td:last').before(newTd);
+    });
     table.find('tbody > tr:first-child th:last-child').before('<th/>');
-
 
     // Highlighting solved tasks
     const STATUS_ERR = 4;
@@ -342,10 +360,12 @@
             let statusInt = STATUS_NONE;
             if (status.search('QUE') !== -1) {
                 statusInt = STATUS_QUE;
-            } else if (status.startsWith('100') ||
+            } else if (
+                status.startsWith('100') ||
                 status.search('OK') !== -1 ||
                 TEST_NUMBER_REGEX.test(status) ||
-                ACCURACY_REGEX.test(status)) {
+                ACCURACY_REGEX.test(status)
+            ) {
                 statusInt = STATUS_OK;
             } else if (status.search('INT') !== -1) {
                 statusInt = STATUS_INT;
@@ -354,7 +374,9 @@
             }
 
             statuses[problemName] = Math.min(
-                statuses[problemName] || STATUS_NONE, statusInt);
+                statuses[problemName] || STATUS_NONE,
+                statusInt,
+            );
 
             // Store the statuses in local storage so they can be retrieved
             // immediately on next page refresh
@@ -377,11 +399,12 @@
         }
     }
 
-    browser.storage.local.get(statusesStorageKey).then(
-        (result) => annotateProblems(result[statusesStorageKey]));
+    browser.storage.local
+        .get(statusesStorageKey)
+        .then((result) => annotateProblems(result[statusesStorageKey]));
     $.ajax({
         type: 'GET',
         url: resultsURL + '?results_limit=10000',
-        success: (html) => annotateProblems(parseResultsStatuses(html))
+        success: (html) => annotateProblems(parseResultsStatuses(html)),
     });
 })();

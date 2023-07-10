@@ -1,33 +1,33 @@
 #container > .colmask > .colmid > .colleft > .col1 {
-  display: grid;
-  grid-template-columns: 1fr 300px;
-
-  #content {
-    grid-column: 1;
-
-    .buttton_bar {
-      margin-top: 1em;
-    }
-  }
-
-  #results-sidebar {
-    grid-column: 2;
-    margin-top: -1em;
-  }
-
-  @media screen and (max-width: 1200px) {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto;
+    display: grid;
+    grid-template-columns: 1fr 300px;
 
     #content {
-      grid-row: 1;
+        grid-column: 1;
+
+        .buttton_bar {
+            margin-top: 1em;
+        }
     }
 
     #results-sidebar {
-      border-top: 1px dotted #A1A39D;
-      grid-column: 1;
-      grid-row: 2;
-      margin: 0 1em 1em;
+        grid-column: 2;
+        margin-top: -1em;
     }
-  }
+
+    @media screen and (max-width: 1200px) {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+
+        #content {
+            grid-row: 1;
+        }
+
+        #results-sidebar {
+            border-top: 1px dotted #a1a39d;
+            grid-column: 1;
+            grid-row: 2;
+            margin: 0 1em 1em;
+        }
+    }
 }
