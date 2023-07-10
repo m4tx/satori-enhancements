@@ -61,3 +61,14 @@ See `gulpfile.js` for more gulp tasks.
 ## Attribution
 
 -   `ext/images_src/alttcs.psd` (derived images: `ext/images_src/alttcs.xcf`, `ext/images/alttcslogo.png`) was originally created by Adam Pardyl
+
+## Contributors
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
