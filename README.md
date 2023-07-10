@@ -24,6 +24,7 @@ have been there since the beginning (but for some reason, they aren't).
     -   "Results" link for each problem
     -   Highlighting problems according to their best status (OK/ANS or other error)
     -   Ability to hide particular problems and remembering hidden problem groups
+    -   Contest selector as a popup instead of a separate page
 -   Ranking:
     -   Ability to sort ranking tables by given column
     -   Search box to filter rows
