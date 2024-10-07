@@ -32,7 +32,7 @@
             'program.cpp',
     );
 
-    ['c', 'cpp', 'py', 'sql'].forEach((ext) => {
+    ['c', 'cpp', 'py', 'asm', 'sql'].forEach((ext) => {
         $('<button class="set-ext-button" />')
             .text(`.${ext}`)
             .appendTo(codeFilenameRow)
