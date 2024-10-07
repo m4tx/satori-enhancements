@@ -12,7 +12,7 @@
         .append(
             '<tr><th>Filename:</th><td colspan="2">' +
             '   <div class="input-row" id="code-filename-row">' +
-            '       <input type="text" id="code-filename" tabindex="5" value="program.cpp" />' +
+            '       <input type="text" id="code-filename" tabindex="5" />' +
             '       <input type="text" id="code-filename-auto" value="" disabled />' +
             '   </div>' +
             '<td></tr>',
@@ -27,6 +27,11 @@
     const form = $('#content form');
     const submitButton = $('#content form input[type=submit]');
 
+    codeFilename.val(
+        new URLSearchParams(window.location.search).get('filename') ||
+            'program.cpp',
+    );
+
     ['c', 'cpp', 'py', 'sql'].forEach((ext) => {
         $('<button class="set-ext-button" />')
             .text(`.${ext}`)
@@ -34,13 +39,17 @@
             .on('click', (event) => {
                 event.preventDefault();
                 const filename = codeFilename.val().trim();
-                codeFilename.val(`${filename.split('.')[0] || 'program'}.${ext}`);
+                codeFilename.val(
+                    `${filename.split('.')[0] || 'program'}.${ext}`,
+                );
             });
     });
     const setExtButtons = $('.set-ext-button');
 
     filePicker.wrap('<div class="input-row"></div>');
-    const clearButton = $('<button tabindex="3">Clear</button>').insertAfter(filePicker);
+    const clearButton = $('<button tabindex="3">Clear</button>').insertAfter(
+        filePicker,
+    );
     submitButton.attr('tabindex', '6');
 
     let loading = false;
@@ -65,11 +74,11 @@
 
         submitButton.attr(
             'disabled',
-            loading
-                || !problemSelect.val()
+            loading ||
+                !problemSelect.val() ||
                 // NXOR - disable submit if somehow both file and text are set:
-                || (textEntered === fileSelected)
-                || (textEntered && !filenameEntered),
+                textEntered === fileSelected ||
+                (textEntered && !filenameEntered),
         );
     };
 
