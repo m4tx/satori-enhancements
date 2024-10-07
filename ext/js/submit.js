@@ -11,20 +11,35 @@
         )
         .append(
             '<tr><th>Filename:</th><td colspan="2">' +
-            '   <input type="text" id="code-filename" tabindex="5" value="program.cpp" />' +
-            '   <input type="text" id="code-filename-auto" value="" disabled />' +
+            '   <div class="input-row" id="code-filename-row">' +
+            '       <input type="text" id="code-filename" tabindex="5" value="program.cpp" />' +
+            '       <input type="text" id="code-filename-auto" value="" disabled />' +
+            '   </div>' +
             '<td></tr>',
         );
 
     const problemSelect = $('#id_problem');
     const filePicker = $('#id_codefile');
     const codeTextarea = $('#code-textarea');
+    const codeFilenameRow = $('#code-filename-row');
     const codeFilename = $('#code-filename');
     const codeFilenameAuto = $('#code-filename-auto');
     const form = $('#content form');
     const submitButton = $('#content form input[type=submit]');
 
-    filePicker.wrap('<div class="file-row"></div>');
+    ['c', 'cpp', 'py', 'sql'].forEach((ext) => {
+        $('<button class="set-ext-button" />')
+            .text(`.${ext}`)
+            .appendTo(codeFilenameRow)
+            .on('click', (event) => {
+                event.preventDefault();
+                const filename = codeFilename.val().trim();
+                codeFilename.val(`${filename.split('.')[0] || 'program'}.${ext}`);
+            });
+    });
+    const setExtButtons = $('.set-ext-button');
+
+    filePicker.wrap('<div class="input-row"></div>');
     const clearButton = $('<button tabindex="3">Clear</button>').insertAfter(filePicker);
     submitButton.attr('tabindex', '6');
 
@@ -42,6 +57,7 @@
 
         const showAutoFilename = fileSelected && !textEntered;
         codeFilename.toggleClass('hidden', showAutoFilename);
+        setExtButtons.attr('disabled', showAutoFilename);
         codeFilenameAuto.toggleClass('hidden', !showAutoFilename);
         codeFilenameAuto.val(filePicker[0]?.files[0]?.name ?? '');
 

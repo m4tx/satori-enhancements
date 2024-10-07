@@ -26,13 +26,18 @@
         }
     }
 
-    .file-row {
+    .input-row {
         display: flex;
         flex-direction: row;
         align-items: center;
+        gap: 4px;
 
         input {
             flex-grow: 1;
+        }
+
+        &.hidden {
+            display: none;
         }
     }
 
