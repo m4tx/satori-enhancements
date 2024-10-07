@@ -5,38 +5,55 @@
 
     $('#content table tr:nth-child(1) th').text('Problem:');
     $('#content table tr:nth-child(2) th').text('File:');
-    $('#content table').append(
-        '<tr><th>Code:</th><td colspan="2"><textarea id="code-textarea" tabindex="4"></textarea><td></tr>',
-    );
+    $('#content table')
+        .append(
+            '<tr><th>Code:</th><td colspan="2"><textarea id="code-textarea" tabindex="4"></textarea><td></tr>',
+        )
+        .append(
+            '<tr><th>Filename:</th><td colspan="2">' +
+            '   <input type="text" id="code-filename" tabindex="5" value="program.cpp" />' +
+            '   <input type="text" id="code-filename-auto" value="" disabled />' +
+            '<td></tr>',
+        );
 
     const problemSelect = $('#id_problem');
     const filePicker = $('#id_codefile');
     const codeTextarea = $('#code-textarea');
+    const codeFilename = $('#code-filename');
+    const codeFilenameAuto = $('#code-filename-auto');
     const form = $('#content form');
     const submitButton = $('#content form input[type=submit]');
 
     filePicker.wrap('<div class="file-row"></div>');
     const clearButton = $('<button tabindex="3">Clear</button>').insertAfter(filePicker);
-    submitButton.attr('tabindex', '5');
+    submitButton.attr('tabindex', '6');
 
     let loading = false;
 
     const updatePickers = () => {
         const fileSelected = filePicker.val() !== '';
         const textEntered = codeTextarea.val() !== '';
+        const filenameEntered = codeFilename.val().trim() !== '';
 
         // disable one type if the other one is filled,
         // but don't disable in case somehow both are filled
         codeTextarea.attr('disabled', fileSelected && !textEntered);
         filePicker.attr('disabled', textEntered && !fileSelected);
 
+        const showAutoFilename = fileSelected && !textEntered;
+        codeFilename.toggleClass('hidden', showAutoFilename);
+        codeFilenameAuto.toggleClass('hidden', !showAutoFilename);
+        codeFilenameAuto.val(filePicker[0]?.files[0]?.name ?? '');
+
         clearButton.toggleClass('hidden', !fileSelected);
 
         submitButton.attr(
             'disabled',
-            loading || !problemSelect.val()
+            loading
+                || !problemSelect.val()
                 // NXOR - disable submit if somehow both file and text are set:
-                || (textEntered === fileSelected),
+                || (textEntered === fileSelected)
+                || (textEntered && !filenameEntered),
         );
     };
 
@@ -84,10 +101,14 @@
         if (filePicker.val() !== '') {
             formData.set('codefile', filePicker[0].files[0]);
         } else if (codeTextarea.val() !== '') {
+            const filename = codeFilename.val().trim();
+            if (filename === '') {
+                return;
+            }
             const blob = new Blob([codeTextarea.val()], {
                 type: 'text/plain',
             });
-            formData.set('codefile', blob, 'code.cpp');
+            formData.set('codefile', blob, filename);
         } else {
             return;
         }
