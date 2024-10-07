@@ -6,7 +6,7 @@
     $('#content table tr:nth-child(1) th').text('Problem:');
     $('#content table tr:nth-child(2) th').text('File:');
     $('#content table').append(
-        '<tr><th>Code:</th><td colspan="2"><textarea id="code-textarea" tabindex="3"></textarea><td></tr>',
+        '<tr><th>Code:</th><td colspan="2"><textarea id="code-textarea" tabindex="4"></textarea><td></tr>',
     );
 
     const problemSelect = $('#id_problem');
@@ -15,18 +15,28 @@
     const form = $('#content form');
     const submitButton = $('#content form input[type=submit]');
 
-    submitButton.attr('tabindex', '4');
+    filePicker.wrap('<div class="file-row"></div>');
+    const clearButton = $('<button tabindex="3">Clear</button>').insertAfter(filePicker);
+    submitButton.attr('tabindex', '5');
 
     let loading = false;
 
     const updatePickers = () => {
         const fileSelected = filePicker.val() !== '';
         const textEntered = codeTextarea.val() !== '';
-        codeTextarea.attr('disabled', fileSelected);
-        filePicker.attr('disabled', textEntered);
+
+        // disable one type if the other one is filled,
+        // but don't disable in case somehow both are filled
+        codeTextarea.attr('disabled', fileSelected && !textEntered);
+        filePicker.attr('disabled', textEntered && !fileSelected);
+
+        clearButton.toggleClass('hidden', !fileSelected);
+
         submitButton.attr(
             'disabled',
-            loading || !problemSelect.val() || !(textEntered || fileSelected),
+            loading || !problemSelect.val()
+                // NXOR - disable submit if somehow both file and text are set:
+                || (textEntered === fileSelected),
         );
     };
 
@@ -110,6 +120,12 @@
             console.error(error);
         }
         loading = false;
+        updatePickers();
+    });
+
+    clearButton.on('click', (event) => {
+        event.preventDefault();
+        filePicker.val('');
         updatePickers();
     });
 })();
