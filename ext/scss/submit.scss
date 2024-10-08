@@ -11,18 +11,33 @@
         }
 
         td {
-            select,
-            input,
-            textarea {
+            & > select,
+            & > input,
+            & > textarea {
                 width: 100%;
                 box-sizing: border-box;
             }
 
-            textarea {
+            & > textarea {
                 resize: vertical;
                 min-height: 100px;
                 height: 200px;
             }
+        }
+    }
+
+    .input-row {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 4px;
+
+        input {
+            flex-grow: 1;
+        }
+
+        &.hidden {
+            display: none;
         }
     }
 

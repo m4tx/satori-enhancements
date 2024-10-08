@@ -20,6 +20,25 @@
     const contestID = getContestID(url);
 
     /**
+     * Get submit extension if possible
+     * @returns {string|null} extension without dot or null
+     */
+    function getExt() {
+        const downloadUrl = $('a[href^="/download/Submit/"]').attr('href');
+        const dotPos = downloadUrl.lastIndexOf('.');
+        if (dotPos === -1) {
+            return null;
+        }
+        const ext = downloadUrl.substring(dotPos + 1).trim();
+        if (ext === '') {
+            return null;
+        }
+        return ext;
+    }
+
+    const ext = getExt();
+
+    /**
      * Parse given HTML and return problem status code if it's found.
      *
      * @param {string} html HTML to parse
@@ -68,10 +87,8 @@
     }
 
     function initializeSyntaxHighlighter() {
-        const downloadUrl = $('a[href^="/download/Submit/"]').attr('href');
-        const dotPos = downloadUrl.lastIndexOf('.');
-        if (dotPos !== -1) {
-            let lang = downloadUrl.substr(dotPos + 1);
+        if (ext !== null) {
+            let lang = ext;
             if (lang === 'asm') {
                 lang = 'x86asm';
             }
@@ -97,9 +114,13 @@
             'href',
             `${SATORI_URL_HTTPS}contest/${contestID}/results?results_filter_problem=${submitID}`,
         );
+        let resubmitUrl = new URL(submitUrl, window.location);
+        if (ext !== null) {
+            resubmitUrl.searchParams.set('filename', `program.${ext}`);
+        }
         const submitButton = $('<a class="button">Submit another</a>').attr(
             'href',
-            submitUrl,
+            resubmitUrl,
         );
         $('<div class="button_bar"></div>')
             .append(resultsButton)

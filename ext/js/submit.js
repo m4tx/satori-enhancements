@@ -5,28 +5,80 @@
 
     $('#content table tr:nth-child(1) th').text('Problem:');
     $('#content table tr:nth-child(2) th').text('File:');
-    $('#content table').append(
-        '<tr><th>Code:</th><td colspan="2"><textarea id="code-textarea" tabindex="3"></textarea><td></tr>',
-    );
+    $('#content table')
+        .append(
+            '<tr><th>Code:</th><td colspan="2"><textarea id="code-textarea" tabindex="4"></textarea><td></tr>',
+        )
+        .append(
+            '<tr><th>Filename:</th><td colspan="2">' +
+            '   <div class="input-row" id="code-filename-row">' +
+            '       <input type="text" id="code-filename" tabindex="5" />' +
+            '       <input type="text" id="code-filename-auto" value="" disabled />' +
+            '   </div>' +
+            '<td></tr>',
+        );
 
     const problemSelect = $('#id_problem');
     const filePicker = $('#id_codefile');
     const codeTextarea = $('#code-textarea');
+    const codeFilenameRow = $('#code-filename-row');
+    const codeFilename = $('#code-filename');
+    const codeFilenameAuto = $('#code-filename-auto');
     const form = $('#content form');
     const submitButton = $('#content form input[type=submit]');
 
-    submitButton.attr('tabindex', '4');
+    codeFilename.val(
+        new URLSearchParams(window.location.search).get('filename') ||
+            'program.cpp',
+    );
+
+    ['c', 'cpp', 'py', 'asm', 'sql'].forEach((ext) => {
+        $('<button class="set-ext-button" />')
+            .text(`.${ext}`)
+            .appendTo(codeFilenameRow)
+            .on('click', (event) => {
+                event.preventDefault();
+                const filename = codeFilename.val().trim();
+                codeFilename.val(
+                    `${filename.split('.')[0] || 'program'}.${ext}`,
+                );
+            });
+    });
+    const setExtButtons = $('.set-ext-button');
+
+    filePicker.wrap('<div class="input-row"></div>');
+    const clearButton = $('<button tabindex="3">Clear</button>').insertAfter(
+        filePicker,
+    );
+    submitButton.attr('tabindex', '6');
 
     let loading = false;
 
     const updatePickers = () => {
         const fileSelected = filePicker.val() !== '';
         const textEntered = codeTextarea.val() !== '';
-        codeTextarea.attr('disabled', fileSelected);
-        filePicker.attr('disabled', textEntered);
+        const filenameEntered = codeFilename.val().trim() !== '';
+
+        // disable one type if the other one is filled,
+        // but don't disable in case somehow both are filled
+        codeTextarea.attr('disabled', fileSelected && !textEntered);
+        filePicker.attr('disabled', textEntered && !fileSelected);
+
+        const showAutoFilename = fileSelected && !textEntered;
+        codeFilename.toggleClass('hidden', showAutoFilename);
+        setExtButtons.attr('disabled', showAutoFilename);
+        codeFilenameAuto.toggleClass('hidden', !showAutoFilename);
+        codeFilenameAuto.val(filePicker[0]?.files[0]?.name ?? '');
+
+        clearButton.toggleClass('hidden', !fileSelected);
+
         submitButton.attr(
             'disabled',
-            loading || !problemSelect.val() || !(textEntered || fileSelected),
+            loading ||
+                !problemSelect.val() ||
+                // NXOR - disable submit if somehow both file and text are set:
+                textEntered === fileSelected ||
+                (textEntered && !filenameEntered),
         );
     };
 
@@ -74,10 +126,14 @@
         if (filePicker.val() !== '') {
             formData.set('codefile', filePicker[0].files[0]);
         } else if (codeTextarea.val() !== '') {
+            const filename = codeFilename.val().trim();
+            if (filename === '') {
+                return;
+            }
             const blob = new Blob([codeTextarea.val()], {
                 type: 'text/plain',
             });
-            formData.set('codefile', blob, 'code.cpp');
+            formData.set('codefile', blob, filename);
         } else {
             return;
         }
@@ -110,6 +166,12 @@
             console.error(error);
         }
         loading = false;
+        updatePickers();
+    });
+
+    clearButton.on('click', (event) => {
+        event.preventDefault();
+        filePicker.val('');
         updatePickers();
     });
 })();
