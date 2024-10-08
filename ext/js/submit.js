@@ -11,11 +11,11 @@
         )
         .append(
             '<tr><th>Filename:</th><td colspan="2">' +
-            '   <div class="input-row" id="code-filename-row">' +
-            '       <input type="text" id="code-filename" tabindex="5" />' +
-            '       <input type="text" id="code-filename-auto" value="" disabled />' +
-            '   </div>' +
-            '<td></tr>',
+                '   <div class="input-row" id="code-filename-row">' +
+                '       <input type="text" id="code-filename" tabindex="5" />' +
+                '       <input type="text" id="code-filename-auto" value="" disabled />' +
+                '   </div>' +
+                '<td></tr>',
         );
 
     const problemSelect = $('#id_problem');
