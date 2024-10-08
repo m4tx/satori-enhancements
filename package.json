@@ -46,10 +46,10 @@
     },
     "dependencies": {
         "@bower_components/SpinKit": "tobiasahlin/SpinKit#^1.2.5",
-        "@bower_components/datatables": "DataTables/DataTables#>=1.10.15",
-        "@bower_components/datatables.net": "DataTables/Dist-DataTables#>=1.10.9",
+        "@bower_components/datatables": "DataTables/DataTables#^1.10.15",
+        "@bower_components/datatables.net": "DataTables/Dist-DataTables#^1.10.9",
         "@bower_components/datatables.net-dt": "DataTables/Dist-DataTables-DataTables#^3.2.2",
-        "@bower_components/datatables.net-fixedcolumns": "DataTables/Dist-DataTables-FixedColumns#>=3.1.0",
+        "@bower_components/datatables.net-fixedcolumns": "DataTables/Dist-DataTables-FixedColumns#^3.1.0",
         "@bower_components/datatables.net-fixedcolumns-dt": "DataTables/Dist-DataTables-FixedColumns-DataTables#^3.2.3",
         "@bower_components/datatables.net-plugins": "DataTables/Plugins#^1.10.16",
         "@bower_components/highlightjs": "components/highlightjs#^9.12.0",
