@@ -1,11 +1,11 @@
 {
-    "manifest_version": 2,
+    "manifest_version": 3,
 
     "name": "Satori Enhancements",
     "description": "Adds a few useful enhancements to Satori Online Judge website.",
-    "version": "1.5",
+    "version": "2.0",
 
-    "minimum_chrome_version": "62",
+    "minimum_chrome_version": "130",
 
     "browser_specific_settings": {
         "gecko": {
@@ -21,36 +21,36 @@
     },
 
     "options_ui": {
-        "page": "options.html",
-        "chrome_style": true,
-        "browser_style": true
+        "page": "options.html"
     },
 
     "permissions": [
         "storage",
         "notifications",
         "webRequest",
-        "webRequestBlocking",
         "cookies",
+        "scripting",
+        "offscreen"
+    ],
+    "host_permissions": [
         "*://satori.tcs.uj.edu.pl/*"
     ],
 
-    "page_action": {
+    "action": {
         "default_icon": "icon128.png",
         "default_title": "Satori Enhancements"
     },
 
     "background": {
-        "scripts": [
-            "vendor/browser-polyfill.js",
-            "vendor/bower/jquery.min.js",
-            "js/config.js",
-            "js/common.js",
-            "js/background.js"
-        ]
+        "service_worker": "js/service-worker.js"
     },
 
-    "web_accessible_resources": ["images/*.png", "images/*.svg"],
+    "web_accessible_resources": [
+        {
+            "resources": ["images/*.png", "images/*.svg"],
+            "matches": ["*://satori.tcs.uj.edu.pl/*"]
+        }
+    ],
 
     "content_scripts": [
         {
