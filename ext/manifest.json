@@ -28,10 +28,12 @@
         "storage",
         "notifications",
         "webRequest",
+        "declarativeNetRequestWithHostAccess",
         "cookies",
         "scripting",
         "offscreen"
     ],
+
     "host_permissions": [
         "*://satori.tcs.uj.edu.pl/*"
     ],
