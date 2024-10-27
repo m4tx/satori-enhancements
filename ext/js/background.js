@@ -115,7 +115,7 @@
     }
 
     /**
-     * Setups a declarative net request rules to redirect to the last contest
+     * Sets up a declarative net request rules to redirect to the last contest
      * if the user just entered Satori webpage.
      */
     function updateLastContestRedirectRules() {
