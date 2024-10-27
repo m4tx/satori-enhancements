@@ -30,20 +30,21 @@
      * variable.
      * @see setUpLastContestRedirect
      */
-    function retrieveLastContestID() {
-        storage.get('lastContestID').then((response) => {
-            lastContestID = response.lastContestID;
-        });
+    async function retrieveLastContestID() {
+        const response = await storage.get('lastContestID');
+        lastContestID = response.lastContestID;
     }
 
     /**
-     * Save last contest ID both in Storage and our local variable.
+     * Save last contest ID both in Storage and our local variable
+     * and update redirect rules.
      * @param {string} contestID last contest ID
      * @see setUpLastContestRedirect
      */
     function saveLastContestID(contestID) {
         storage.set({ lastContestID: contestID });
         lastContestID = contestID;
+        updateLastContestRedirectRules();
     }
 
     /**
@@ -114,13 +115,48 @@
     }
 
     /**
-     * Add an onBeforeRequest listener that redirects to the last contest
+     * Setups a declarative net request rules to redirect to the last contest
      * if the user just entered Satori webpage.
+     */
+    function updateLastContestRedirectRules() {
+        const addRules = [];
+        if (typeof lastContestID !== 'undefined' && lastContestID !== null) {
+            addRules.push(
+                ...[
+                    { id: 1, urlFilter: '||satori.tcs.uj.edu.pl/|' },
+                    { id: 2, urlFilter: '||satori.tcs.uj.edu.pl/news' },
+                ].map(({ id, urlFilter }) => ({
+                    id,
+                    condition: {
+                        urlFilter,
+                        // Redirect only if the user just opened Satori on a given tab
+                        excludedTabIds: [...satoriTabs.values()],
+                        resourceTypes: ['main_frame'],
+                    },
+                    action: {
+                        type: 'redirect',
+                        redirect: {
+                            url: SATORI_URL_CONTEST + lastContestID + '/',
+                        },
+                    },
+                }))
+            );
+        }
+        browser.declarativeNetRequest.updateSessionRules({
+            removeRuleIds: [1, 2],
+            addRules,
+        });
+    }
+
+    /**
+     * Enables the last contest redirect.
      *
      * Also, the function adds webNavigation.onCommitted and tabs.onRemoved
      * listeners to keep the list of Satori tabs.
      */
     function setUpLastContestRedirect() {
+        updateLastContestRedirectRules();
+
         // Store which tabs have Satori open
         browser.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
             if (
@@ -132,36 +168,13 @@
             } else {
                 satoriTabs.delete(tabId);
             }
+            updateLastContestRedirectRules();
         });
 
-        browser.tabs.onRemoved.addListener((tabId) => satoriTabs.delete(tabId));
-
-        browser.webRequest.onBeforeRequest.addListener(
-            function (details) {
-                if (
-                    typeof lastContestID === 'undefined' ||
-                    lastContestID === null ||
-                    satoriTabs.has(details.tabId)
-                ) {
-                    // If we haven't saved any contest yet, then do nothing
-                    // Also, don't redirect if the user is already browsing
-                    // Satori
-                    return;
-                }
-
-                return {
-                    redirectUrl: SATORI_URL_CONTEST + lastContestID + '/',
-                };
-            },
-            {
-                urls: [
-                    '*://satori.tcs.uj.edu.pl/',
-                    '*://satori.tcs.uj.edu.pl/news',
-                ],
-                types: ['main_frame'],
-            },
-            ['blocking'],
-        );
+        browser.tabs.onRemoved.addListener((tabId) => {
+            satoriTabs.delete(tabId);
+            updateLastContestRedirectRules();
+        });
     }
 
     /**
@@ -298,8 +311,9 @@
         return (await storage.get('contestList')).contestList ?? [];
     }
 
-    retrieveLastContestID();
-    setUpLastContestRedirect();
+    retrieveLastContestID().then(() => {
+        setUpLastContestRedirect();
+    });
     setUpSessionCookies();
 
     browser.runtime.onMessage.addListener((request, sender) => {

@@ -3,9 +3,9 @@
 
     browser.runtime.sendMessage({ action: 'enablePageAction' });
 
-    const BANNER_URL = browser.extension.getURL('images/satori_banner.png');
-    const TCS_LOGO_URL = browser.extension.getURL('images/tcslogo.svg');
-    const ALT_TCS_LOGO_URL = browser.extension.getURL('images/alttcslogo.png');
+    const BANNER_URL = browser.runtime.getURL('images/satori_banner.png');
+    const TCS_LOGO_URL = browser.runtime.getURL('images/tcslogo.svg');
+    const ALT_TCS_LOGO_URL = browser.runtime.getURL('images/alttcslogo.png');
 
     let storage = browser.storage.sync || browser.storage.local;
 
