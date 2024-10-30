@@ -27,7 +27,6 @@
     "permissions": [
         "storage",
         "notifications",
-        "webRequest",
         "declarativeNetRequestWithHostAccess",
         "cookies",
         "scripting",
