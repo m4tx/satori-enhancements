@@ -27,7 +27,9 @@ if (typeof module !== 'undefined') {
     };
 }
 
-function parseProblemList(jqueryHandles) {
+function parseProblemList(htmlText) {
+    const jqueryHandles = $.parseHTML(htmlText);
+
     return Object.fromEntries(
         jqueryHandles.flatMap((el) =>
             [

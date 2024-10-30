@@ -10,7 +10,7 @@
     "browser_specific_settings": {
         "gecko": {
             "id": "{a7a2f4f4-8648-4221-8e88-af047e0fe5ca}",
-            "strict_min_version": "42.0"
+            "strict_min_version": "132.0"
         }
     },
 
@@ -34,9 +34,7 @@
         "offscreen"
     ],
 
-    "host_permissions": [
-        "*://satori.tcs.uj.edu.pl/*"
-    ],
+    "host_permissions": ["*://satori.tcs.uj.edu.pl/*"],
 
     "action": {
         "default_icon": "icon128.png",
@@ -44,7 +42,14 @@
     },
 
     "background": {
-        "service_worker": "js/service-worker.js"
+        "service_worker": "js/background.js",
+        "scripts": [
+            "vendor/browser-polyfill.js",
+            "js/config.js",
+            "vendor/bower/jquery.min.js",
+            "js/common.js",
+            "js/background.js"
+        ]
     },
 
     "web_accessible_resources": [

@@ -17,10 +17,7 @@
     let problemStatus = tr.find('td:last').text();
 
     let url = document.location.href;
-    console.log("XD");
     const contestID = getContestID(url);
-    console.log("XD2");
-
 
     /**
      * Get submit extension if possible

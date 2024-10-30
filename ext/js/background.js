@@ -1,3 +1,7 @@
+if (typeof importScripts !== 'undefined') {
+    importScripts('../vendor/browser-polyfill.js', 'config.js', 'common.js');
+}
+
 (function () {
     'use strict';
 
@@ -15,6 +19,21 @@
     let satoriTabs = new Set();
 
     const contestProblemList = {};
+
+    /**
+     * The offscreen document being currently created, if any.
+     */
+    let offscreenBeingCreated;
+
+    /**
+     * Return the web browser name this extension is running on.
+     * @returns {string} 'chrome' or 'firefox' depending on the browser
+     */
+    function currentBrowser() {
+        return browser.runtime.getURL('').startsWith('chrome-extension://')
+            ? 'chrome'
+            : 'firefox';
+    }
 
     function displayStatusNotification(submitID, problemCode, status) {
         browser.notifications.create({
@@ -48,14 +67,14 @@
     }
 
     /**
-     * Display extension's page action.
-     * @param tab tab object
+     * Display extension's action.
      */
-    function enablePageAction(tab) {
-        browser.pageAction.show(tab.id);
-        browser.pageAction.onClicked.addListener(() =>
-            browser.runtime.openOptionsPage(),
-        );
+    function enableAction() {
+        const listener = () => {
+            browser.runtime.openOptionsPage();
+        };
+
+        browser.action.onClicked.addListener(listener);
     }
 
     /**
@@ -139,7 +158,7 @@
                             url: SATORI_URL_CONTEST + lastContestID + '/',
                         },
                     },
-                }))
+                })),
             );
         }
         browser.declarativeNetRequest.updateSessionRules({
@@ -180,17 +199,18 @@
     /**
      * Add highlight.js CSS to the page using the selected style.
      */
-    function injectHighlightJsCss(tab) {
-        storage
+    async function injectHighlightJsCss(tab) {
+        await storage
             .get({
                 [HIGHLIGHT_JS_STYLE_KEY]:
                     DEFAULT_SETTINGS[HIGHLIGHT_JS_STYLE_KEY],
             })
-            .then((response) => {
+            .then(async (response) => {
                 let style = response.highlightJsStyle;
                 if (style !== 'none') {
-                    browser.tabs.insertCSS(tab.id, {
-                        file: `vendor/bower/hjsstyles/${style}.css`,
+                    await browser.scripting.insertCSS({
+                        files: [`vendor/bower/hjsstyles/${style}.css`],
+                        target: { tabId: tab.id },
                     });
                 }
             });
@@ -285,14 +305,56 @@
                 if (!response.ok) {
                     throw new Error(`HTTP Status ${response.status}`);
                 }
-                contestProblemList[contestID] = parseProblemList(
-                    $.parseHTML(await response.text()),
-                );
+                const responseText = await response.text();
+
+                if (currentBrowser() === 'chrome') {
+                    await setupOffscreenDocument('/html/offscreen.html');
+                    const parseResponse = await chrome.runtime.sendMessage({
+                        type: 'parseProblemList',
+                        target: 'offscreen',
+                        data: responseText,
+                    });
+                    await chrome.offscreen.closeDocument();
+
+                    contestProblemList[contestID] = parseResponse;
+                } else {
+                    contestProblemList[contestID] =
+                        parseProblemList(responseText);
+                }
             } catch (error) {
                 console.error(error);
             }
         }
         return contestProblemList[contestID] ?? {};
+    }
+
+    /**
+     * Setup offscreen document for parsing HTML
+     * @param path path to the offscreen document
+     * @returns {Promise<void>} promise that resolves when the document is ready
+     */
+    async function setupOffscreenDocument(path) {
+        const offscreenUrl = chrome.runtime.getURL(path);
+        const existingContexts = await chrome.runtime.getContexts({
+            contextTypes: ['OFFSCREEN_DOCUMENT'],
+            documentUrls: [offscreenUrl],
+        });
+
+        if (existingContexts.length > 0) {
+            return;
+        }
+
+        if (offscreenBeingCreated) {
+            await offscreenBeingCreated;
+        } else {
+            offscreenBeingCreated = chrome.offscreen.createDocument({
+                url: path,
+                reasons: [chrome.offscreen.Reason.DOM_PARSER],
+                justification: 'Parse DOM',
+            });
+            await offscreenBeingCreated;
+            offscreenBeingCreated = null;
+        }
     }
 
     /**
@@ -316,17 +378,20 @@
     });
     setUpSessionCookies();
 
-    browser.runtime.onMessage.addListener((request, sender) => {
-        if (request.action === 'enablePageAction') {
-            enablePageAction(sender.tab);
+    browser.runtime.onMessage.addListener(async (request, sender) => {
+        if (request.action === 'enableAction') {
+            enableAction(sender.tab);
+            return new Promise((resolve) => resolve(null));
         } else if (request.action === 'saveLastContestID') {
             saveLastContestID(getContestID(sender.url));
+            return new Promise((resolve) => resolve(null));
         } else if (request.action === 'displayStatusNotification') {
             displayStatusNotification(
                 request.submitID,
                 request.problemCode,
                 request.problemStatus,
             );
+            return new Promise((resolve) => resolve(null));
         } else if (request.action === 'modifyContestItemList') {
             modifyContestItemList(
                 request.listName,
@@ -334,6 +399,7 @@
                 request.value,
                 request.add,
             );
+            return new Promise((resolve) => resolve(null));
         } else if (request.action === 'getContestItemList') {
             return new Promise((resolve) => {
                 getContestItemList(
@@ -343,16 +409,21 @@
                 );
             });
         } else if (request.action === 'injectHighlightJsCss') {
-            injectHighlightJsCss(sender.tab);
+            await injectHighlightJsCss(sender.tab);
+            return new Promise((resolve) => resolve(null));
         } else if (request.action === 'saveContestProblemList') {
             saveContestProblemList(request.contestID, request.problems);
+            return new Promise((resolve) => resolve(null));
         } else if (request.action === 'getContestProblemList') {
             return getProblemList(request.contestID);
         } else if (request.action === 'setJoinedContestList') {
             saveJoinedContestList(request.contestList);
+            return new Promise((resolve) => resolve(null));
         } else if (request.action === 'getJoinedContestList') {
             return getJoinedContestList();
         }
-        return new Promise((resolve) => resolve(null));
+
+        console.warn(`Unexpected message type received: '${request.action}'.`);
+        return false;
     });
 })();
