@@ -37,6 +37,7 @@ let distFiles = [
     'icon48.png',
     'icon128.png',
     'options.html',
+    'html/**/*',
     'css/**/*',
     'js/**/*',
     'images/**/*',

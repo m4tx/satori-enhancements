@@ -9,7 +9,7 @@ satori-enhancements is a WebExtension built for Jagiellonian University's
 to improve usability, ease of use and add some useful features, that should
 have been there since the beginning (but for some reason, they aren't).
 
-![Satori Enhancements results page](screenshots/results.png)
+![Satori Enhancements results page](screenshots/results-2x.png)
 
 ## Features
 

@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    browser.runtime.sendMessage({ action: 'enablePageAction' });
+    browser.runtime.sendMessage({ action: 'enableAction' });
 
     const BANNER_URL = browser.runtime.getURL('images/satori_banner.png');
     const TCS_LOGO_URL = browser.runtime.getURL('images/tcslogo.svg');
